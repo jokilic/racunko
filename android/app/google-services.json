@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "945689156630",
+    "project_id": "racunko-78d94",
+    "storage_bucket": "racunko-78d94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945689156630:android:534e4dee5580f208346937",
+        "android_client_info": {
+          "package_name": "com.josipkilic.racunko"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABKWiXiI6SHPX2ski3OV5YRVmwzmUamqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
