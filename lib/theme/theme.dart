@@ -22,12 +22,34 @@ class RacunkoTheme {
 
   static final lightAppColors = RacunkoColorsExtension(
     white: RacunkoColors.white,
-    black: RacunkoColors.black,
+    grey: RacunkoColors.grey,
+    darkBlue: RacunkoColors.darkBlue,
+    blue: RacunkoColors.blue,
+    red: RacunkoColors.red,
+    green: RacunkoColors.green,
   );
 
   static final lightTextTheme = RacunkoTextThemesExtension(
-    error: RacunkoTextStyles.error.copyWith(
-      color: lightAppColors.black,
+    title: RacunkoTextStyles.title.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
+    subtitle: RacunkoTextStyles.subtitle.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
+    button: RacunkoTextStyles.button.copyWith(
+      color: lightAppColors.white,
+    ),
+    text: RacunkoTextStyles.text.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
+    inputText: RacunkoTextStyles.inputText.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
+    hintText: RacunkoTextStyles.hintText.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
+    fab: RacunkoTextStyles.fab.copyWith(
+      color: lightAppColors.white,
     ),
   );
 }
