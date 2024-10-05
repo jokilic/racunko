@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/fees.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/racunko_number_field.dart';
 
 class CreateInvoiceReserve extends StatelessWidget {
+  final TextEditingController reserveController;
+  final Function() onTextFieldChanged;
+  final Fees? fees;
+
+  const CreateInvoiceReserve({
+    required this.reserveController,
+    required this.onTextFieldChanged,
+    required this.fees,
+  });
+
   @override
   Widget build(BuildContext context) => Column(
         children: [
@@ -20,8 +31,9 @@ class CreateInvoiceReserve extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: RacunkoNumberField(
-              hintText: '21.92€',
-              onChanged: (value) {},
+              textController: reserveController,
+              hintText: fees?.reserve.toString() ?? '---',
+              onChanged: (_) => onTextFieldChanged(),
             ),
           ),
         ],

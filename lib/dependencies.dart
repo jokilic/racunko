@@ -3,8 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'services/auth_service.dart';
 import 'services/firebase_service.dart';
 import 'services/firestore_service.dart';
+import 'services/hive_service.dart';
 import 'services/logger_service.dart';
-import 'services/storage_service.dart';
 
 final getIt = GetIt.instance;
 
@@ -12,7 +12,7 @@ final getIt = GetIt.instance;
 /// Optionally runs a function with newly registered class
 void registerIfNotInitialized<T extends Object>(
   T Function() factoryFunc, {
-  required String instanceName,
+  String? instanceName,
   void Function(T controller)? afterRegister,
 }) {
   if (!getIt.isRegistered<T>(instanceName: instanceName)) {
@@ -53,9 +53,12 @@ void initializeServices() => getIt
     dependsOn: [LoggerService, FirebaseService],
   )
   ..registerSingletonAsync(
-    () async => StorageService(
-      logger: getIt.get<LoggerService>(),
-      firebase: getIt.get<FirebaseService>(),
-    ),
-    dependsOn: [LoggerService, FirebaseService],
+    () async {
+      final hive = HiveService(
+        logger: getIt.get<LoggerService>(),
+      );
+      await hive.init();
+      return hive;
+    },
+    dependsOn: [LoggerService],
   );

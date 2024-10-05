@@ -8,7 +8,7 @@ abstract class RacunkoTextStyles {
   );
   static const subtitle = TextStyle(
     fontFamily: 'Outfit',
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: FontWeight.w600,
   );
   static const button = TextStyle(
@@ -19,7 +19,7 @@ abstract class RacunkoTextStyles {
   );
   static const text = TextStyle(
     fontFamily: 'Outfit',
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: FontWeight.w600,
   );
   static const inputText = TextStyle(

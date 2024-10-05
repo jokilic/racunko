@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/fees.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/racunko_number_field.dart';
 
 class CreateInvoiceFees extends StatelessWidget {
+  final TextEditingController feesGasController;
+  final TextEditingController feesElectricityController;
+  final TextEditingController feesWaterController;
+  final Function() onTextFieldChanged;
+  final Fees? fees;
+
+  const CreateInvoiceFees({
+    required this.feesGasController,
+    required this.feesElectricityController,
+    required this.feesWaterController,
+    required this.onTextFieldChanged,
+    required this.fees,
+  });
+
   @override
   Widget build(BuildContext context) => Column(
         children: [
@@ -23,7 +38,7 @@ class CreateInvoiceFees extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Plin',
+                    'Struja',
                     style: context.textStyles.text,
                   ),
                 ),
@@ -31,8 +46,9 @@ class CreateInvoiceFees extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: RacunkoNumberField(
-                    hintText: '1.81€',
-                    onChanged: (value) {},
+                    textController: feesElectricityController,
+                    hintText: fees?.feesElectricity.toString() ?? '---',
+                    onChanged: (_) => onTextFieldChanged(),
                   ),
                 ),
               ],
@@ -45,7 +61,7 @@ class CreateInvoiceFees extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Struja',
+                    'Plin',
                     style: context.textStyles.text,
                   ),
                 ),
@@ -53,8 +69,9 @@ class CreateInvoiceFees extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: RacunkoNumberField(
-                    hintText: '2.85€',
-                    onChanged: (value) {},
+                    textController: feesGasController,
+                    hintText: fees?.feesGas.toString() ?? '---',
+                    onChanged: (_) => onTextFieldChanged(),
                   ),
                 ),
               ],
@@ -75,8 +92,9 @@ class CreateInvoiceFees extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: RacunkoNumberField(
-                    hintText: '2.51€',
-                    onChanged: (value) {},
+                    textController: feesWaterController,
+                    hintText: fees?.feesWater.toString() ?? '---',
+                    onChanged: (_) => onTextFieldChanged(),
                   ),
                 ),
               ],

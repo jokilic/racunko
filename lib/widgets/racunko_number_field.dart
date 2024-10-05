@@ -5,11 +5,13 @@ import '../theme/theme.dart';
 import '../util/input_formatters.dart';
 
 class RacunkoNumberField extends StatelessWidget {
+  final TextEditingController textController;
   final String hintText;
   final Function(String value) onChanged;
   final TextInputAction textInputAction;
 
   const RacunkoNumberField({
+    required this.textController,
     required this.hintText,
     required this.onChanged,
     this.textInputAction = TextInputAction.next,
@@ -17,6 +19,7 @@ class RacunkoNumberField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => TextField(
+        controller: textController,
         decoration: InputDecoration(
           filled: true,
           hintText: hintText,
