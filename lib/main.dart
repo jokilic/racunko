@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'dependencies.dart';
 import 'firebase_options.dart';
@@ -26,6 +28,9 @@ Future<void> main() async {
   /// Initialize services
   initializeServices();
 
+  /// Date formatting
+  await initializeDateFormatting('hr');
+
   /// Wait for initialization to finish
   await getIt.allReady();
 
@@ -36,6 +41,8 @@ Future<void> main() async {
 class RacunkoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        supportedLocales: const [Locale('hr')],
         debugShowCheckedModeBanner: false,
         home: InvoicesScreen(),
         onGenerateTitle: (_) => 'Računko',

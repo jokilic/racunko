@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../models/fees.dart';
 import '../../../theme/theme.dart';
-import '../../../widgets/racunko_number_field.dart';
+import '../../../widgets/racunko_text_field.dart';
 
 class CreateInvoiceFees extends StatelessWidget {
   final TextEditingController feesGasController;
@@ -45,9 +45,9 @@ class CreateInvoiceFees extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   flex: 4,
-                  child: RacunkoNumberField(
+                  child: RacunkoTextField(
                     textController: feesElectricityController,
-                    hintText: fees?.feesElectricity.toString() ?? '---',
+                    hintText: fees?.feesElectricity.toStringAsFixed(2) ?? '---',
                     onChanged: (_) => onTextFieldChanged(),
                   ),
                 ),
@@ -68,9 +68,9 @@ class CreateInvoiceFees extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   flex: 4,
-                  child: RacunkoNumberField(
+                  child: RacunkoTextField(
                     textController: feesGasController,
-                    hintText: fees?.feesGas.toString() ?? '---',
+                    hintText: fees?.feesGas.toStringAsFixed(2) ?? '---',
                     onChanged: (_) => onTextFieldChanged(),
                   ),
                 ),
@@ -91,9 +91,9 @@ class CreateInvoiceFees extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   flex: 4,
-                  child: RacunkoNumberField(
+                  child: RacunkoTextField(
                     textController: feesWaterController,
-                    hintText: fees?.feesWater.toString() ?? '---',
+                    hintText: fees?.feesWater.toStringAsFixed(2) ?? '---',
                     onChanged: (_) => onTextFieldChanged(),
                   ),
                 ),

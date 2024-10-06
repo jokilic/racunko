@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../theme/theme.dart';
-import '../../../widgets/racunko_number_field.dart';
+import '../../../widgets/racunko_text_field.dart';
 
 class CreateInvoiceConsumption extends StatelessWidget {
   final TextEditingController electricityHigherLastMonthController;
@@ -57,7 +57,7 @@ class CreateInvoiceConsumption extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 2,
-                  child: RacunkoNumberField(
+                  child: RacunkoTextField(
                     textController: electricityHigherLastMonthController,
                     hintText: 'Prošli mjesec',
                     onChanged: (_) => onTextFieldChanged(),
@@ -66,7 +66,7 @@ class CreateInvoiceConsumption extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   flex: 2,
-                  child: RacunkoNumberField(
+                  child: RacunkoTextField(
                     textController: electricityHigherNewMonthController,
                     hintText: 'Novi mjesec',
                     onChanged: (_) => onTextFieldChanged(),
@@ -93,7 +93,7 @@ class CreateInvoiceConsumption extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 2,
-                  child: RacunkoNumberField(
+                  child: RacunkoTextField(
                     textController: electricityLowerLastMonthController,
                     hintText: 'Prošli mjesec',
                     onChanged: (_) => onTextFieldChanged(),
@@ -102,7 +102,7 @@ class CreateInvoiceConsumption extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   flex: 2,
-                  child: RacunkoNumberField(
+                  child: RacunkoTextField(
                     textController: electricityLowerNewMonthController,
                     hintText: 'Novi mjesec',
                     onChanged: (_) => onTextFieldChanged(),
@@ -129,7 +129,7 @@ class CreateInvoiceConsumption extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                  child: RacunkoNumberField(
+                  child: RacunkoTextField(
                     textController: gasLastMonthController,
                     hintText: 'Prošli mjesec',
                     onChanged: (_) => onTextFieldChanged(),
@@ -137,7 +137,7 @@ class CreateInvoiceConsumption extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: RacunkoNumberField(
+                  child: RacunkoTextField(
                     textController: gasNewMonthController,
                     hintText: 'Novi mjesec',
                     onChanged: (_) => onTextFieldChanged(),
@@ -165,7 +165,7 @@ class CreateInvoiceConsumption extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 2,
-                  child: RacunkoNumberField(
+                  child: RacunkoTextField(
                     textController: waterLastMonthController,
                     hintText: 'Prošli mjesec',
                     onChanged: (_) => onTextFieldChanged(),
@@ -174,7 +174,7 @@ class CreateInvoiceConsumption extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   flex: 2,
-                  child: RacunkoNumberField(
+                  child: RacunkoTextField(
                     textController: waterNewMonthController,
                     hintText: 'Novi mjesec',
                     onChanged: (_) => onTextFieldChanged(),

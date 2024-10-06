@@ -38,6 +38,11 @@ abstract class RacunkoTextStyles {
     fontWeight: FontWeight.w600,
     letterSpacing: 0.4,
   );
+  static const calendarText = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+  );
 }
 
 class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtension> {
@@ -48,6 +53,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
   final TextStyle inputText;
   final TextStyle hintText;
   final TextStyle fab;
+  final TextStyle calendarText;
 
   const RacunkoTextThemesExtension({
     required this.title,
@@ -57,6 +63,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     required this.inputText,
     required this.hintText,
     required this.fab,
+    required this.calendarText,
   });
 
   @override
@@ -68,6 +75,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     TextStyle? inputText,
     TextStyle? hintText,
     TextStyle? fab,
+    TextStyle? calendarText,
   }) =>
       RacunkoTextThemesExtension(
         title: title ?? this.title,
@@ -77,6 +85,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
         inputText: inputText ?? this.inputText,
         hintText: hintText ?? this.hintText,
         fab: fab ?? this.fab,
+        calendarText: calendarText ?? this.calendarText,
       );
 
   @override
@@ -96,6 +105,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
       inputText: TextStyle.lerp(inputText, other.inputText, t)!,
       hintText: TextStyle.lerp(hintText, other.hintText, t)!,
       fab: TextStyle.lerp(fab, other.fab, t)!,
+      calendarText: TextStyle.lerp(calendarText, other.calendarText, t)!,
     );
   }
 }

@@ -16,7 +16,7 @@ class Invoice {
   @HiveField(2)
   final Fees fees;
   @HiveField(3)
-  final String apartmentName;
+  final String name;
   @HiveField(4)
   final DateTime monthFrom;
   @HiveField(5)
@@ -44,7 +44,7 @@ class Invoice {
     required this.createdDate,
     required this.prices,
     required this.fees,
-    required this.apartmentName,
+    required this.name,
     required this.monthFrom,
     required this.monthTo,
     required this.electricityHigherLastMonth,
@@ -62,7 +62,7 @@ class Invoice {
     DateTime? createdDate,
     Prices? prices,
     Fees? fees,
-    String? apartmentName,
+    String? name,
     DateTime? monthFrom,
     DateTime? monthTo,
     double? electricityHigherLastMonth,
@@ -79,7 +79,7 @@ class Invoice {
         createdDate: createdDate ?? this.createdDate,
         prices: prices ?? this.prices,
         fees: fees ?? this.fees,
-        apartmentName: apartmentName ?? this.apartmentName,
+        name: name ?? this.name,
         monthFrom: monthFrom ?? this.monthFrom,
         monthTo: monthTo ?? this.monthTo,
         electricityHigherLastMonth: electricityHigherLastMonth ?? this.electricityHigherLastMonth,
@@ -97,7 +97,7 @@ class Invoice {
         'createdDate': createdDate.millisecondsSinceEpoch,
         'prices': prices.toMap(),
         'fees': fees.toMap(),
-        'apartmentName': apartmentName,
+        'name': name,
         'monthFrom': monthFrom.millisecondsSinceEpoch,
         'monthTo': monthTo.millisecondsSinceEpoch,
         'electricityHigherLastMonth': electricityHigherLastMonth,
@@ -115,7 +115,7 @@ class Invoice {
         createdDate: DateTime.fromMillisecondsSinceEpoch(map['createdDate'] as int),
         prices: Prices.fromMap(map['prices'] as Map<String, dynamic>),
         fees: Fees.fromMap(map['fees'] as Map<String, dynamic>),
-        apartmentName: map['apartmentName'] as String,
+        name: map['name'] as String,
         monthFrom: DateTime.fromMillisecondsSinceEpoch(map['monthFrom'] as int),
         monthTo: DateTime.fromMillisecondsSinceEpoch(map['monthTo'] as int),
         electricityHigherLastMonth: map['electricityHigherLastMonth'] as double,
@@ -135,7 +135,7 @@ class Invoice {
 
   @override
   String toString() =>
-      'Invoice(createdDate: $createdDate, prices: $prices, fees: $fees, apartmentName: $apartmentName, monthFrom: $monthFrom, monthTo: $monthTo, electricityHigherLastMonth: $electricityHigherLastMonth, electricityHigherNewMonth: $electricityHigherNewMonth, electricityLowerLastMonth: $electricityLowerLastMonth, electricityLowerNewMonth: $electricityLowerNewMonth, gasLastMonth: $gasLastMonth, gasNewMonth: $gasNewMonth, waterLastMonth: $waterLastMonth, waterNewMonth: $waterNewMonth, totalPrice: $totalPrice)';
+      'Invoice(createdDate: $createdDate, prices: $prices, fees: $fees, name: $name, monthFrom: $monthFrom, monthTo: $monthTo, electricityHigherLastMonth: $electricityHigherLastMonth, electricityHigherNewMonth: $electricityHigherNewMonth, electricityLowerLastMonth: $electricityLowerLastMonth, electricityLowerNewMonth: $electricityLowerNewMonth, gasLastMonth: $gasLastMonth, gasNewMonth: $gasNewMonth, waterLastMonth: $waterLastMonth, waterNewMonth: $waterNewMonth, totalPrice: $totalPrice)';
 
   @override
   bool operator ==(covariant Invoice other) {
@@ -146,7 +146,7 @@ class Invoice {
     return other.createdDate == createdDate &&
         other.prices == prices &&
         other.fees == fees &&
-        other.apartmentName == apartmentName &&
+        other.name == name &&
         other.monthFrom == monthFrom &&
         other.monthTo == monthTo &&
         other.electricityHigherLastMonth == electricityHigherLastMonth &&
@@ -165,7 +165,7 @@ class Invoice {
       createdDate.hashCode ^
       prices.hashCode ^
       fees.hashCode ^
-      apartmentName.hashCode ^
+      name.hashCode ^
       monthFrom.hashCode ^
       monthTo.hashCode ^
       electricityHigherLastMonth.hashCode ^

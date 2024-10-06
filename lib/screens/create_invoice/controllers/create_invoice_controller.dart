@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../models/fees.dart';
-import '../../models/invoice.dart';
-import '../../services/hive_service.dart';
-import '../../services/logger_service.dart';
+import '../../../models/fees.dart';
+import '../../../models/invoice.dart';
+import '../../../services/hive_service.dart';
+import '../../../services/logger_service.dart';
+import 'create_invoice_date_controller.dart';
 
 class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposable {
   final LoggerService logger;
   final HiveService hive;
+  final CreateInvoiceDateController dateController;
 
   CreateInvoiceController({
     required this.logger,
     required this.hive,
+    required this.dateController,
   }) : super(null);
 
   ///
   /// VARIABLES
   ///
+
+  final nameController = TextEditingController();
 
   final electricityHigherLastMonthController = TextEditingController();
   final electricityHigherNewMonthController = TextEditingController();
@@ -44,6 +49,7 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
 
   @override
   void onDispose() {
+    nameController.dispose();
     electricityHigherLastMonthController.dispose();
     electricityHigherNewMonthController.dispose();
     electricityLowerLastMonthController.dispose();
@@ -70,6 +76,8 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
     final fees = hive.getFees();
 
     if (lastInvoice != null) {
+      nameController.text = lastInvoice.name;
+
       electricityHigherLastMonthController.text = lastInvoice.electricityHigherNewMonth.toInt().toString();
       electricityLowerLastMonthController.text = lastInvoice.electricityLowerNewMonth.toInt().toString();
       gasLastMonthController.text = lastInvoice.gasNewMonth.toInt().toString();
@@ -77,11 +85,11 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
     }
 
     if (fees != null) {
-      feesElectricityController.text = fees.feesElectricity.toString();
-      feesGasController.text = fees.feesGas.toString();
-      feesWaterController.text = fees.feesWater.toString();
-      utilityController.text = fees.utility.toString();
-      reserveController.text = fees.reserve.toString();
+      feesElectricityController.text = fees.feesElectricity.toStringAsFixed(2);
+      feesGasController.text = fees.feesGas.toStringAsFixed(2);
+      feesWaterController.text = fees.feesWater.toStringAsFixed(2);
+      utilityController.text = fees.utility.toStringAsFixed(2);
+      reserveController.text = fees.reserve.toStringAsFixed(2);
     }
   }
 
@@ -148,6 +156,12 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
     /// Reserve
     final reserve = double.tryParse(reserveController.text.trim());
 
+    /// Don't calculate if name isn't filled
+    if (nameController.text.trim().isEmpty) {
+      logger.e("Name isn't filled");
+      return null;
+    }
+
     ///
     /// Don't calculate if any of the values is `null`
     ///
@@ -174,6 +188,12 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
         (gasLastMonth >= gasNewMonth) ||
         (waterLastMonth >= waterNewMonth)) {
       logger.e('Some of the last month values are higher or same as some of the new month values');
+      return null;
+    }
+
+    /// Don't calculate if the date isn't picked out
+    if (dateController.value.monthFrom == null || dateController.value.monthTo == null) {
+      logger.e("Date isn't chosen");
       return null;
     }
 
@@ -222,12 +242,9 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
             utility: utility,
             reserve: reserve,
           ),
-          // TODO: Name
-          apartmentName: 'Trokut',
-          // TODO: Month from
-          monthFrom: DateTime(2024, 2),
-          // TODO: Month to
-          monthTo: DateTime(2024, 3),
+          name: nameController.text.trim(),
+          monthFrom: dateController.value.monthFrom!,
+          monthTo: dateController.value.monthTo!,
           electricityHigherLastMonth: electricityHigherLastMonth,
           electricityHigherNewMonth: electricityHigherNewMonth,
           electricityLowerLastMonth: electricityLowerLastMonth,

@@ -9,7 +9,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
+  calendar_date_picker2: 1.1.7
   cloud_firestore: 5.4.3
   firebase_auth: 5.3.1
   firebase_core: 3.6.0

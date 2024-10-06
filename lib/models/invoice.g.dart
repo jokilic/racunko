@@ -20,7 +20,7 @@ class InvoiceAdapter extends TypeAdapter<Invoice> {
       createdDate: fields[0] as DateTime,
       prices: fields[1] as Prices,
       fees: fields[2] as Fees,
-      apartmentName: fields[3] as String,
+      name: fields[3] as String,
       monthFrom: fields[4] as DateTime,
       monthTo: fields[5] as DateTime,
       electricityHigherLastMonth: (fields[6] as num).toDouble(),
@@ -46,7 +46,7 @@ class InvoiceAdapter extends TypeAdapter<Invoice> {
       ..writeByte(2)
       ..write(obj.fees)
       ..writeByte(3)
-      ..write(obj.apartmentName)
+      ..write(obj.name)
       ..writeByte(4)
       ..write(obj.monthFrom)
       ..writeByte(5)

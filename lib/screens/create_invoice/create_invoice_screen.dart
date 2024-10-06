@@ -7,9 +7,12 @@ import '../../routing.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/theme.dart';
-import 'create_invoice_controller.dart';
+import 'controllers/create_invoice_controller.dart';
+import 'controllers/create_invoice_date_controller.dart';
 import 'widgets/create_invoice_consumption.dart';
+import 'widgets/create_invoice_date.dart';
 import 'widgets/create_invoice_fees.dart';
+import 'widgets/create_invoice_name.dart';
 import 'widgets/create_invoice_reserve.dart';
 import 'widgets/create_invoice_utility.dart';
 
@@ -29,10 +32,16 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
   void initState() {
     super.initState();
 
+    registerIfNotInitialized<CreateInvoiceDateController>(
+      () => CreateInvoiceDateController(
+        logger: getIt.get<LoggerService>(),
+      ),
+    );
     registerIfNotInitialized<CreateInvoiceController>(
       () => CreateInvoiceController(
         logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
+        dateController: getIt.get<CreateInvoiceDateController>(),
       ),
       afterRegister: (controller) => controller.fillTextControllers(),
     );
@@ -40,15 +49,22 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
   @override
   void dispose() {
-    getIt.unregister<CreateInvoiceController>();
+    getIt
+      ..unregister<CreateInvoiceDateController>()
+      ..unregister<CreateInvoiceController>();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final controller = getIt.get<CreateInvoiceController>();
+    final controllerDate = getIt.get<CreateInvoiceDateController>();
+
     final fees = getIt.get<HiveService>().getFees();
-    final totalPrice = watchIt<CreateInvoiceController>().value?.totalPrice;
+
+    final invoice = watchIt<CreateInvoiceController>().value;
+    final dates = watchIt<CreateInvoiceDateController>().value;
 
     return Scaffold(
       body: SafeArea(
@@ -70,6 +86,19 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
               ),
             ),
             const SizedBox(height: 32),
+            CreateInvoiceName(
+              nameController: controller.nameController,
+              onTextFieldChanged: controller.generateInvoiceFromTextFields,
+            ),
+            const SizedBox(height: 40),
+            CreateInvoiceDate(
+              onCalendarPressed: (context) async {
+                await controllerDate.openCalendar(context);
+                controller.generateInvoiceFromTextFields();
+              },
+              dates: dates,
+            ),
+            const SizedBox(height: 40),
             CreateInvoiceConsumption(
               electricityHigherLastMonthController: controller.electricityHigherLastMonthController,
               electricityHigherNewMonthController: controller.electricityHigherNewMonthController,
@@ -116,8 +145,9 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
                   Expanded(
                     flex: 4,
                     child: Text(
-                      totalPrice != null ? '$totalPrice €' : '---',
+                      invoice?.totalPrice != null ? '${invoice?.totalPrice} €' : '---',
                       style: context.textStyles.subtitle,
+                      textAlign: TextAlign.left,
                     ),
                   ),
                 ],
@@ -125,16 +155,18 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
             ),
             const SizedBox(height: 24),
             ElevatedButton.icon(
-              onPressed: () {
-                final newInvoice = controller.createInvoice();
+              onPressed: invoice != null
+                  ? () {
+                      final newInvoice = controller.createInvoice();
 
-                if (newInvoice != null) {
-                  openInvoiceCreated(
-                    context,
-                    invoice: newInvoice,
-                  );
-                }
-              },
+                      if (newInvoice != null) {
+                        openInvoiceCreated(
+                          context,
+                          invoice: newInvoice,
+                        );
+                      }
+                    }
+                  : null,
               icon: const Icon(
                 Icons.receipt_long,
                 size: 28,
@@ -147,9 +179,10 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
-                iconColor: context.colors.white,
                 backgroundColor: context.colors.darkBlue,
                 foregroundColor: context.colors.white,
+                disabledBackgroundColor: context.colors.grey,
+                disabledForegroundColor: context.colors.white,
                 textStyle: context.textStyles.button,
               ),
               label: const Text('Napravi račun'),

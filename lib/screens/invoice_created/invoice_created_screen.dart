@@ -13,7 +13,7 @@ class InvoiceCreatedScreen extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
           child: Text(
-            invoice.apartmentName,
+            invoice.name,
           ),
         ),
       );

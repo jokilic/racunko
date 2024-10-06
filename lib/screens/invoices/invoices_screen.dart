@@ -120,7 +120,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                       color: context.colors.grey,
                     ),
                     child: Text(
-                      invoice.apartmentName,
+                      invoice.name,
                       style: context.textStyles.subtitle.copyWith(
                         color: context.colors.white,
                       ),

@@ -51,6 +51,9 @@ class RacunkoTheme {
     fab: RacunkoTextStyles.fab.copyWith(
       color: lightAppColors.white,
     ),
+    calendarText: RacunkoTextStyles.calendarText.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
   );
 }
 
