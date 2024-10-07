@@ -3,10 +3,11 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../dependencies.dart';
 import '../../models/invoice.dart';
-import '../../routing.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
+import '../../theme/icons.dart';
 import '../../theme/theme.dart';
+import '../invoices/invoices_controller.dart';
 import 'controllers/create_invoice_controller.dart';
 import 'controllers/create_invoice_date_controller.dart';
 import 'widgets/create_invoice_consumption.dart';
@@ -17,10 +18,10 @@ import 'widgets/create_invoice_reserve.dart';
 import 'widgets/create_invoice_utility.dart';
 
 class CreateInvoiceScreen extends WatchingStatefulWidget {
-  final Invoice? previousInvoice;
+  final Invoice? invoiceToEdit;
 
   const CreateInvoiceScreen({
-    required this.previousInvoice,
+    required this.invoiceToEdit,
   });
 
   @override
@@ -35,13 +36,16 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
     registerIfNotInitialized<CreateInvoiceDateController>(
       () => CreateInvoiceDateController(
         logger: getIt.get<LoggerService>(),
+        invoiceToEdit: widget.invoiceToEdit,
       ),
+      afterRegister: (controller) => controller.fillCalendarIfPossible(),
     );
     registerIfNotInitialized<CreateInvoiceController>(
       () => CreateInvoiceController(
         logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
         dateController: getIt.get<CreateInvoiceDateController>(),
+        invoiceToEdit: widget.invoiceToEdit,
       ),
       afterRegister: (controller) => controller.fillTextControllers(),
     );
@@ -78,12 +82,33 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
           ),
           physics: const BouncingScrollPhysics(),
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text(
-                'Novi račun 🧾',
-                style: context.textStyles.title,
-              ),
+            Row(
+              children: [
+                IconButton.filled(
+                  onPressed: Navigator.of(context).pop,
+                  color: Colors.red,
+                  highlightColor: Colors.yellow,
+                  style: IconButton.styleFrom(
+                    padding: const EdgeInsets.all(16),
+                    backgroundColor: context.colors.white,
+                    foregroundColor: context.colors.darkBlue,
+                    overlayColor: context.colors.darkBlue,
+                  ),
+                  icon: Image.asset(
+                    RacunkoIcons.back,
+                    color: context.colors.darkBlue,
+                    height: 24,
+                    width: 24,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Expanded(
+                  child: Text(
+                    widget.invoiceToEdit != null ? 'Uredi račun 🧾' : 'Novi račun 🧾',
+                    style: context.textStyles.title,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 32),
             CreateInvoiceName(
@@ -145,7 +170,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
                   Expanded(
                     flex: 4,
                     child: Text(
-                      invoice?.totalPrice != null ? '${invoice?.totalPrice} €' : '---',
+                      invoice?.totalPrice != null ? '${invoice?.totalPrice.toStringAsFixed(2)} €' : '---',
                       style: context.textStyles.subtitle,
                       textAlign: TextAlign.left,
                     ),
@@ -156,14 +181,12 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
             const SizedBox(height: 24),
             ElevatedButton.icon(
               onPressed: invoice != null
-                  ? () {
-                      final newInvoice = controller.createInvoice();
+                  ? () async {
+                      final newInvoice = await controller.createInvoice();
 
                       if (newInvoice != null) {
-                        openInvoiceCreated(
-                          context,
-                          invoice: newInvoice,
-                        );
+                        getIt.get<InvoicesController>().updateState();
+                        Navigator.of(context).pop();
                       }
                     }
                   : null,
@@ -181,6 +204,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
                 ),
                 backgroundColor: context.colors.darkBlue,
                 foregroundColor: context.colors.white,
+                overlayColor: context.colors.white,
                 disabledBackgroundColor: context.colors.grey,
                 disabledForegroundColor: context.colors.white,
                 textStyle: context.textStyles.button,

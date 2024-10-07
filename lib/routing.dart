@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'models/invoice.dart';
 import 'screens/create_invoice/create_invoice_screen.dart';
-import 'screens/invoice_created/invoice_created_screen.dart';
+import 'screens/invoice/invoice_screen.dart';
 import 'screens/invoices/invoices_screen.dart';
 import 'util/navigation.dart';
 
@@ -15,22 +15,22 @@ void openInvoices(BuildContext context) => pushScreen(
 /// Opens [CreateInvoiceScreen]
 void openCreateInvoice(
   BuildContext context, {
-  required Invoice? previousInvoice,
+  required Invoice? invoiceToEdit,
 }) =>
     pushScreen(
       CreateInvoiceScreen(
-        previousInvoice: previousInvoice,
+        invoiceToEdit: invoiceToEdit,
       ),
       context: context,
     );
 
-/// Opens [InvoiceCreatedScreen]
-void openInvoiceCreated(
+/// Opens [InvoiceScreen]
+void openInvoice(
   BuildContext context, {
   required Invoice invoice,
 }) =>
     pushScreen(
-      InvoiceCreatedScreen(
+      InvoiceScreen(
         invoice: invoice,
       ),
       context: context,

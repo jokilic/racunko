@@ -58,6 +58,7 @@ class CreateInvoiceDate extends StatelessWidget {
             iconColor: context.colors.darkBlue,
             backgroundColor: context.colors.white,
             foregroundColor: context.colors.darkBlue,
+            overlayColor: context.colors.darkBlue,
             textStyle: context.textStyles.button.copyWith(
               height: 1.6,
             ),

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../models/invoice.dart';
 
-class InvoiceCreatedScreen extends StatelessWidget {
+class InvoiceScreen extends StatelessWidget {
   final Invoice invoice;
 
-  const InvoiceCreatedScreen({
+  const InvoiceScreen({
     required this.invoice,
   });
 

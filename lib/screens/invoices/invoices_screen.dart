@@ -8,6 +8,7 @@ import '../../services/logger_service.dart';
 import '../../theme/icons.dart';
 import '../../theme/theme.dart';
 import 'invoices_controller.dart';
+import 'widgets/invoice_list_tile.dart';
 
 class InvoicesScreen extends WatchingStatefulWidget {
   @override
@@ -41,7 +42,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => openCreateInvoice(
           context,
-          previousInvoice: getIt.get<HiveService>().getLastInvoice(),
+          invoiceToEdit: null,
         ),
         label: Text(
           'Novi račun',
@@ -50,8 +51,8 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        backgroundColor: context.colors.darkBlue,
-        splashColor: context.colors.darkBlue,
+        backgroundColor: context.colors.green,
+        splashColor: context.colors.green,
         foregroundColor: context.colors.white,
         icon: const Icon(
           Icons.receipt_long,
@@ -72,7 +73,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                'Pozdrav, Milan. 👋🏼',
+                'Pozdrav, Milane. 👋🏼',
                 style: context.textStyles.title,
               ),
             ),
@@ -94,16 +95,6 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                 width: 256,
               ),
             ] else ...[
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(
-                    'Tvoji računi',
-                    style: context.textStyles.subtitle,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
               ListView.separated(
                 shrinkWrap: true,
                 itemCount: invoices.length,
@@ -111,30 +102,15 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                 itemBuilder: (_, index) {
                   final invoice = invoices[index];
 
-                  return Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.symmetric(vertical: 12),
-                    padding: const EdgeInsets.symmetric(vertical: 24),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: context.colors.grey,
-                    ),
-                    child: Text(
-                      invoice.name,
-                      style: context.textStyles.subtitle.copyWith(
-                        color: context.colors.white,
-                      ),
+                  return InvoiceListTile(
+                    invoice: invoice,
+                    onPressed: () => openCreateInvoice(
+                      context,
+                      invoiceToEdit: invoice,
                     ),
                   );
                 },
-                separatorBuilder: (_, __) => Container(
-                  height: 1,
-                  margin: const EdgeInsets.symmetric(horizontal: 120),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: context.colors.grey,
-                  ),
-                ),
+                separatorBuilder: (_, __) => const SizedBox(height: 16),
               ),
             ],
           ],

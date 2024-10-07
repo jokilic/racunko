@@ -54,6 +54,15 @@ class RacunkoTheme {
     calendarText: RacunkoTextStyles.calendarText.copyWith(
       color: lightAppColors.darkBlue,
     ),
+    invoiceListTileTitle: RacunkoTextStyles.invoiceListTileTitle.copyWith(
+      color: lightAppColors.white,
+    ),
+    invoiceListTileAboveSubtitle: RacunkoTextStyles.invoiceListTileAboveSubtitle.copyWith(
+      color: lightAppColors.white,
+    ),
+    invoiceListTileSubtitle: RacunkoTextStyles.invoiceListTileSubtitle.copyWith(
+      color: lightAppColors.white,
+    ),
   );
 }
 

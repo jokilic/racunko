@@ -12,4 +12,10 @@ class InvoicesController extends ValueNotifier<List<Invoice>> {
     required this.logger,
     required this.hive,
   }) : super(hive.getInvoices());
+
+  ///
+  /// METHODS
+  ///
+
+  void updateState() => value = hive.getInvoices();
 }

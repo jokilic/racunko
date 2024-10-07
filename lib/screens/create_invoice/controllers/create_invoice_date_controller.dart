@@ -3,20 +3,33 @@ import 'dart:math';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/invoice.dart';
 import '../../../services/logger_service.dart';
 import '../../../theme/icons.dart';
 import '../../../theme/theme.dart';
 
 class CreateInvoiceDateController extends ValueNotifier<({DateTime? monthFrom, DateTime? monthTo})> {
   final LoggerService logger;
+  final Invoice? invoiceToEdit;
 
   CreateInvoiceDateController({
     required this.logger,
+    required this.invoiceToEdit,
   }) : super((monthFrom: null, monthTo: null));
 
   ///
   /// METHODS
   ///
+
+  /// Updates state to the dates of `invoiceToEdit`, if it exists
+  void fillCalendarIfPossible() {
+    if (invoiceToEdit != null) {
+      value = (
+        monthFrom: invoiceToEdit!.monthFrom,
+        monthTo: invoiceToEdit!.monthTo,
+      );
+    }
+  }
 
   /// Triggered when the user taps the date icon
   /// Opens calendar and stores the picked dates in `state`
@@ -100,7 +113,10 @@ class CreateInvoiceDateController extends ValueNotifier<({DateTime? monthFrom, D
       final lastDate = chosenDates?.lastOrNull;
 
       if (firstDate != null && lastDate != null) {
-        value = (monthFrom: firstDate, monthTo: lastDate);
+        value = (
+          monthFrom: firstDate,
+          monthTo: lastDate,
+        );
       }
     }
   }

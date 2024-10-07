@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../models/fees.dart';
 import '../../../models/invoice.dart';
@@ -11,11 +12,13 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
   final LoggerService logger;
   final HiveService hive;
   final CreateInvoiceDateController dateController;
+  final Invoice? invoiceToEdit;
 
   CreateInvoiceController({
     required this.logger,
     required this.hive,
     required this.dateController,
+    required this.invoiceToEdit,
   }) : super(null);
 
   ///
@@ -42,6 +45,8 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
 
   final utilityController = TextEditingController();
   final reserveController = TextEditingController();
+
+  late final uuid = const Uuid();
 
   ///
   /// DISPOSE
@@ -75,12 +80,31 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
     final lastInvoice = hive.getLastInvoice();
     final fees = hive.getFees();
 
-    if (lastInvoice != null) {
+    /// User editing invoice, fill all controlles with values
+    if (invoiceToEdit != null) {
+      nameController.text = invoiceToEdit!.name;
+
+      electricityHigherLastMonthController.text = invoiceToEdit!.electricityHigherLastMonth.toInt().toString();
+      electricityHigherNewMonthController.text = invoiceToEdit!.electricityHigherNewMonth.toInt().toString();
+      electricityLowerLastMonthController.text = invoiceToEdit!.electricityLowerLastMonth.toInt().toString();
+      electricityLowerNewMonthController.text = invoiceToEdit!.electricityLowerNewMonth.toInt().toString();
+
+      gasLastMonthController.text = invoiceToEdit!.gasLastMonth.toInt().toString();
+      gasNewMonthController.text = invoiceToEdit!.gasNewMonth.toInt().toString();
+
+      waterLastMonthController.text = invoiceToEdit!.waterLastMonth.toInt().toString();
+      waterNewMonthController.text = invoiceToEdit!.waterNewMonth.toInt().toString();
+    }
+
+    /// User is creating a new invoice and last invoice exists
+    else if (lastInvoice != null) {
       nameController.text = lastInvoice.name;
 
       electricityHigherLastMonthController.text = lastInvoice.electricityHigherNewMonth.toInt().toString();
       electricityLowerLastMonthController.text = lastInvoice.electricityLowerNewMonth.toInt().toString();
+
       gasLastMonthController.text = lastInvoice.gasNewMonth.toInt().toString();
+
       waterLastMonthController.text = lastInvoice.waterNewMonth.toInt().toString();
     }
 
@@ -96,7 +120,7 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
   /// Triggered when `Create invoice` is pressed
   /// Generates new invoice
   /// Stores new fees in storage if necessary
-  Invoice? createInvoice() {
+  Future<Invoice?> createInvoice() async {
     /// Generate new invoice
     final newInvoice = generateInvoiceFromTextFields();
 
@@ -107,12 +131,22 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
 
       /// If the fees are not the same, add new values in storage
       if (oldFees != newFees) {
-        hive.addNewFees(newFees);
+        await hive.addNewFees(newFees);
         logger.d('New fees in storage');
       }
 
+      /// Edit passed invoice
+      if (invoiceToEdit != null) {
+        await hive.replaceInvoice(
+          idOfEditedInvoice: invoiceToEdit!.id,
+          newInvoice: newInvoice,
+        );
+      }
+
       /// Create new invoice
-      hive.addNewInvoice(newInvoice);
+      else {
+        await hive.addNewInvoice(newInvoice);
+      }
 
       logger.d('Invoice created');
       return newInvoice;
@@ -159,6 +193,7 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
     /// Don't calculate if name isn't filled
     if (nameController.text.trim().isEmpty) {
       logger.e("Name isn't filled");
+      value = null;
       return null;
     }
 
@@ -179,6 +214,7 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
         utility == null ||
         reserve == null) {
       logger.e('Some of the values is null');
+      value = null;
       return null;
     }
 
@@ -188,12 +224,14 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
         (gasLastMonth >= gasNewMonth) ||
         (waterLastMonth >= waterNewMonth)) {
       logger.e('Some of the last month values are higher or same as some of the new month values');
+      value = null;
       return null;
     }
 
     /// Don't calculate if the date isn't picked out
     if (dateController.value.monthFrom == null || dateController.value.monthTo == null) {
       logger.e("Date isn't chosen");
+      value = null;
       return null;
     }
 
@@ -233,6 +271,7 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
       /// All is good, generate new [Invoice] & update `state`
       if (sum != null) {
         final newInvoice = Invoice(
+          id: invoiceToEdit != null ? invoiceToEdit!.id : uuid.v1(),
           createdDate: DateTime.now(),
           prices: prices,
           fees: Fees(
@@ -256,13 +295,14 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
           totalPrice: sum,
         );
 
-        value = newInvoice;
-
         logger.d('New invoice generated');
+
+        value = newInvoice;
         return newInvoice;
       }
     }
 
+    value = null;
     return null;
   }
 }

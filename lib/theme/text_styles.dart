@@ -43,6 +43,21 @@ abstract class RacunkoTextStyles {
     fontSize: 20,
     fontWeight: FontWeight.w600,
   );
+  static const invoiceListTileTitle = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+  );
+  static const invoiceListTileAboveSubtitle = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
+  static const invoiceListTileSubtitle = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
 }
 
 class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtension> {
@@ -54,6 +69,9 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
   final TextStyle hintText;
   final TextStyle fab;
   final TextStyle calendarText;
+  final TextStyle invoiceListTileTitle;
+  final TextStyle invoiceListTileAboveSubtitle;
+  final TextStyle invoiceListTileSubtitle;
 
   const RacunkoTextThemesExtension({
     required this.title,
@@ -64,6 +82,9 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     required this.hintText,
     required this.fab,
     required this.calendarText,
+    required this.invoiceListTileTitle,
+    required this.invoiceListTileAboveSubtitle,
+    required this.invoiceListTileSubtitle,
   });
 
   @override
@@ -76,6 +97,9 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     TextStyle? hintText,
     TextStyle? fab,
     TextStyle? calendarText,
+    TextStyle? invoiceListTileTitle,
+    TextStyle? invoiceListTileAboveSubtitle,
+    TextStyle? invoiceListTileSubtitle,
   }) =>
       RacunkoTextThemesExtension(
         title: title ?? this.title,
@@ -86,6 +110,9 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
         hintText: hintText ?? this.hintText,
         fab: fab ?? this.fab,
         calendarText: calendarText ?? this.calendarText,
+        invoiceListTileTitle: invoiceListTileTitle ?? this.invoiceListTileTitle,
+        invoiceListTileAboveSubtitle: invoiceListTileAboveSubtitle ?? this.invoiceListTileAboveSubtitle,
+        invoiceListTileSubtitle: invoiceListTileSubtitle ?? this.invoiceListTileSubtitle,
       );
 
   @override
@@ -106,6 +133,9 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
       hintText: TextStyle.lerp(hintText, other.hintText, t)!,
       fab: TextStyle.lerp(fab, other.fab, t)!,
       calendarText: TextStyle.lerp(calendarText, other.calendarText, t)!,
+      invoiceListTileTitle: TextStyle.lerp(invoiceListTileTitle, other.invoiceListTileTitle, t)!,
+      invoiceListTileAboveSubtitle: TextStyle.lerp(invoiceListTileAboveSubtitle, other.invoiceListTileAboveSubtitle, t)!,
+      invoiceListTileSubtitle: TextStyle.lerp(invoiceListTileSubtitle, other.invoiceListTileSubtitle, t)!,
     );
   }
 }

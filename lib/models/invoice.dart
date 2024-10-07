@@ -10,37 +10,40 @@ part 'invoice.g.dart';
 @HiveType(typeId: 2)
 class Invoice {
   @HiveField(0)
-  final DateTime createdDate;
+  final String id;
   @HiveField(1)
-  final Prices prices;
+  final DateTime createdDate;
   @HiveField(2)
-  final Fees fees;
+  final Prices prices;
   @HiveField(3)
-  final String name;
+  final Fees fees;
   @HiveField(4)
-  final DateTime monthFrom;
+  final String name;
   @HiveField(5)
-  final DateTime monthTo;
+  final DateTime monthFrom;
   @HiveField(6)
-  final double electricityHigherLastMonth;
+  final DateTime monthTo;
   @HiveField(7)
-  final double electricityHigherNewMonth;
+  final double electricityHigherLastMonth;
   @HiveField(8)
-  final double electricityLowerLastMonth;
+  final double electricityHigherNewMonth;
   @HiveField(9)
-  final double electricityLowerNewMonth;
+  final double electricityLowerLastMonth;
   @HiveField(10)
-  final double gasLastMonth;
+  final double electricityLowerNewMonth;
   @HiveField(11)
-  final double gasNewMonth;
+  final double gasLastMonth;
   @HiveField(12)
-  final double waterLastMonth;
+  final double gasNewMonth;
   @HiveField(13)
-  final double waterNewMonth;
+  final double waterLastMonth;
   @HiveField(14)
+  final double waterNewMonth;
+  @HiveField(15)
   final double totalPrice;
 
   Invoice({
+    required this.id,
     required this.createdDate,
     required this.prices,
     required this.fees,
@@ -59,6 +62,7 @@ class Invoice {
   });
 
   Invoice copyWith({
+    String? id,
     DateTime? createdDate,
     Prices? prices,
     Fees? fees,
@@ -76,6 +80,7 @@ class Invoice {
     double? totalPrice,
   }) =>
       Invoice(
+        id: id ?? this.id,
         createdDate: createdDate ?? this.createdDate,
         prices: prices ?? this.prices,
         fees: fees ?? this.fees,
@@ -94,6 +99,7 @@ class Invoice {
       );
 
   Map<String, dynamic> toMap() => <String, dynamic>{
+        'id': id,
         'createdDate': createdDate.millisecondsSinceEpoch,
         'prices': prices.toMap(),
         'fees': fees.toMap(),
@@ -112,6 +118,7 @@ class Invoice {
       };
 
   factory Invoice.fromMap(Map<String, dynamic> map) => Invoice(
+        id: map['id'] as String,
         createdDate: DateTime.fromMillisecondsSinceEpoch(map['createdDate'] as int),
         prices: Prices.fromMap(map['prices'] as Map<String, dynamic>),
         fees: Fees.fromMap(map['fees'] as Map<String, dynamic>),
@@ -135,7 +142,7 @@ class Invoice {
 
   @override
   String toString() =>
-      'Invoice(createdDate: $createdDate, prices: $prices, fees: $fees, name: $name, monthFrom: $monthFrom, monthTo: $monthTo, electricityHigherLastMonth: $electricityHigherLastMonth, electricityHigherNewMonth: $electricityHigherNewMonth, electricityLowerLastMonth: $electricityLowerLastMonth, electricityLowerNewMonth: $electricityLowerNewMonth, gasLastMonth: $gasLastMonth, gasNewMonth: $gasNewMonth, waterLastMonth: $waterLastMonth, waterNewMonth: $waterNewMonth, totalPrice: $totalPrice)';
+      'Invoice(id: $id, createdDate: $createdDate, prices: $prices, fees: $fees, name: $name, monthFrom: $monthFrom, monthTo: $monthTo, electricityHigherLastMonth: $electricityHigherLastMonth, electricityHigherNewMonth: $electricityHigherNewMonth, electricityLowerLastMonth: $electricityLowerLastMonth, electricityLowerNewMonth: $electricityLowerNewMonth, gasLastMonth: $gasLastMonth, gasNewMonth: $gasNewMonth, waterLastMonth: $waterLastMonth, waterNewMonth: $waterNewMonth, totalPrice: $totalPrice)';
 
   @override
   bool operator ==(covariant Invoice other) {
@@ -143,7 +150,8 @@ class Invoice {
       return true;
     }
 
-    return other.createdDate == createdDate &&
+    return other.id == id &&
+        other.createdDate == createdDate &&
         other.prices == prices &&
         other.fees == fees &&
         other.name == name &&
@@ -162,6 +170,7 @@ class Invoice {
 
   @override
   int get hashCode =>
+      id.hashCode ^
       createdDate.hashCode ^
       prices.hashCode ^
       fees.hashCode ^
