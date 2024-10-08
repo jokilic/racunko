@@ -4,7 +4,6 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 import '../constants.dart';
 import '../hive_registrar.g.dart';
 import '../models/fees.dart';
-import '../models/invoice.dart';
 import '../models/prices.dart';
 import '../util/path.dart';
 import 'logger_service.dart';
@@ -22,7 +21,6 @@ class HiveService implements Disposable {
 
   late final Box<Prices> prices;
   late final Box<Fees> fees;
-  late final Box<Invoice> invoices;
 
   ///
   /// INIT
@@ -37,7 +35,6 @@ class HiveService implements Disposable {
 
     prices = await Hive.openBox<Prices>('pricesBox');
     fees = await Hive.openBox<Fees>('feesBox');
-    invoices = await Hive.openBox<Invoice>('invoicesBox');
 
     if (prices.isEmpty) {
       await addNewPrices(
@@ -70,7 +67,7 @@ class HiveService implements Disposable {
   @override
   Future<void> onDispose() async {
     await prices.close();
-    await invoices.close();
+    await fees.close();
     await Hive.close();
   }
 
@@ -82,10 +79,6 @@ class HiveService implements Disposable {
 
   Fees? getFees() => fees.values.toList().firstOrNull;
 
-  List<Invoice> getInvoices() => invoices.values.toList();
-
-  Invoice? getLastInvoice() => invoices.values.toList().lastOrNull;
-
   Future<void> addNewPrices(Prices newPrices) async {
     await prices.clear();
     await prices.add(newPrices);
@@ -95,19 +88,4 @@ class HiveService implements Disposable {
     await fees.clear();
     await fees.add(newFees);
   }
-
-  Future<void> addNewInvoice(Invoice invoice) async => invoices.put(
-        invoice.id,
-        invoice,
-      );
-
-  Future<void> replaceInvoice({
-    required String editedInvoiceId,
-    required Invoice newInvoice,
-  }) async {
-    await invoices.delete(editedInvoiceId);
-    await invoices.put(editedInvoiceId, newInvoice);
-  }
-
-  Future<void> deleteInvoice(Invoice invoice) async => invoices.delete(invoice.id);
 }

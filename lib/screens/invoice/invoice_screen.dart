@@ -3,6 +3,7 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../dependencies.dart';
 import '../../models/invoice.dart';
+import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/icons.dart';
@@ -17,9 +18,11 @@ import 'widgets/invoice_reserve.dart';
 import 'widgets/invoice_utility.dart';
 
 class InvoiceScreen extends WatchingStatefulWidget {
+  final Invoice? lastInvoice;
   final Invoice? invoiceToEdit;
 
   const InvoiceScreen({
+    this.lastInvoice,
     this.invoiceToEdit,
   });
 
@@ -43,7 +46,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
       () => InvoiceController(
         logger: getIt.get<LoggerService>(),
         hive: getIt.get<HiveService>(),
+        firebase: getIt.get<FirebaseService>(),
         dateController: getIt.get<InvoiceDateController>(),
+        lastInvoice: widget.lastInvoice,
         invoiceToEdit: widget.invoiceToEdit,
       ),
       afterRegister: (controller) => controller.fillTextControllers(),

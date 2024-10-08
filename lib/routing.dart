@@ -14,10 +14,12 @@ void openInvoices(BuildContext context) => pushScreen(
 /// Opens [InvoiceScreen]
 void openInvoice(
   BuildContext context, {
+  Invoice? lastInvoice,
   Invoice? invoiceToEdit,
 }) =>
     pushScreen(
       InvoiceScreen(
+        lastInvoice: lastInvoice,
         invoiceToEdit: invoiceToEdit,
       ),
       context: context,

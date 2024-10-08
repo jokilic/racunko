@@ -4,6 +4,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../models/fees.dart';
 import '../../../models/invoice.dart';
+import '../../../services/firebase_service.dart';
 import '../../../services/hive_service.dart';
 import '../../../services/logger_service.dart';
 import 'invoice_date_controller.dart';
@@ -11,13 +12,17 @@ import 'invoice_date_controller.dart';
 class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
   final LoggerService logger;
   final HiveService hive;
+  final FirebaseService firebase;
   final InvoiceDateController dateController;
+  final Invoice? lastInvoice;
   final Invoice? invoiceToEdit;
 
   InvoiceController({
     required this.logger,
     required this.hive,
+    required this.firebase,
     required this.dateController,
+    this.lastInvoice,
     this.invoiceToEdit,
   }) : super(null);
 
@@ -77,7 +82,6 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
   /// Checks if there are values in storage or passed into the controller
   /// Fills relevant [TextEditingController] with proper value
   void fillTextControllers() {
-    final lastInvoice = hive.getLastInvoice();
     final fees = hive.getFees();
 
     /// User editing invoice, fill all controlles with values
@@ -98,14 +102,14 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
 
     /// User is creating a new invoice and last invoice exists
     else if (lastInvoice != null) {
-      nameController.text = lastInvoice.name;
+      nameController.text = lastInvoice!.name;
 
-      electricityHigherLastMonthController.text = lastInvoice.electricityHigherNewMonth.toInt().toString();
-      electricityLowerLastMonthController.text = lastInvoice.electricityLowerNewMonth.toInt().toString();
+      electricityHigherLastMonthController.text = lastInvoice!.electricityHigherNewMonth.toInt().toString();
+      electricityLowerLastMonthController.text = lastInvoice!.electricityLowerNewMonth.toInt().toString();
 
-      gasLastMonthController.text = lastInvoice.gasNewMonth.toInt().toString();
+      gasLastMonthController.text = lastInvoice!.gasNewMonth.toInt().toString();
 
-      waterLastMonthController.text = lastInvoice.waterNewMonth.toInt().toString();
+      waterLastMonthController.text = lastInvoice!.waterNewMonth.toInt().toString();
     }
 
     if (fees != null) {
@@ -137,7 +141,7 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
 
       /// Edit passed invoice
       if (invoiceToEdit != null) {
-        await hive.replaceInvoice(
+        await firebase.replaceInvoice(
           editedInvoiceId: invoiceToEdit!.id,
           newInvoice: newInvoice,
         );
@@ -145,7 +149,7 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
 
       /// Create new invoice
       else {
-        await hive.addNewInvoice(newInvoice);
+        await firebase.addNewInvoice(newInvoice);
       }
 
       logger.d('Invoice created');

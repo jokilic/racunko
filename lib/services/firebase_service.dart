@@ -35,6 +35,27 @@ class FirebaseService {
     }
   }
 
+  Future<String?> getUserName() async {
+    try {
+      final user = auth.currentUser;
+
+      if (user == null) {
+        throw Exception('User not authenticated');
+      }
+
+      final docSnapshot = await firestore.collection('users').doc(user.uid).get();
+
+      if (docSnapshot.exists) {
+        return docSnapshot.data()?['userName'];
+      }
+
+      return null;
+    } catch (e) {
+      logger.e('FirebaseService -> getUserName() -> $e');
+      return null;
+    }
+  }
+
   /// Fetch all invoices
   Future<List<Invoice>?> getInvoices() async {
     try {
