@@ -4,4 +4,9 @@ class RacunkoIcons {
   static const pdf = 'assets/icons/pdf.png';
   static const illustration1 = 'assets/images/illustration1.png';
   static const illustration2 = 'assets/images/illustration2.png';
+
+  static const illustrations = [
+    RacunkoIcons.illustration1,
+    RacunkoIcons.illustration2,
+  ];
 }

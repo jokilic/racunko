@@ -17,100 +17,153 @@ class FirebaseService {
     required this.firestore,
   });
 
-  late final invoicesCollection = firestore.collection('invoices');
+  /// Login user
+  Future<User?> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final user = await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-  /// Fetch all invoices
-  Future<List<Invoice>> getInvoices() async {
-    final user = auth.currentUser;
-
-    if (user == null) {
-      throw Exception('User not authenticated');
+      return user.user;
+    } catch (e) {
+      logger.e('FirebaseService -> loginUser() -> $e');
+      return null;
     }
-
-    final querySnapshot = await invoicesCollection.where('userId', isEqualTo: user.uid).orderBy('createdDate', descending: true).get();
-
-    return querySnapshot.docs.map((doc) => Invoice.fromFirestore(doc)).toList();
   }
 
-  Stream<List<Invoice>> getInvoicesStream() {
-    final user = auth.currentUser;
+  /// Fetch all invoices
+  Future<List<Invoice>?> getInvoices() async {
+    try {
+      final user = auth.currentUser;
 
-    if (user == null) {
-      throw Exception('User not authenticated');
+      if (user == null) {
+        throw Exception('User not authenticated');
+      }
+
+      final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
+
+      final querySnapshot = await userCollection.orderBy('createdDate', descending: true).get();
+
+      return querySnapshot.docs.map((doc) => Invoice.fromFirestore(doc)).toList();
+    } catch (e) {
+      logger.e('FirebaseService -> getInvoices() -> $e');
+      return null;
     }
+  }
 
-    return invoicesCollection
-        .where('userId', isEqualTo: user.uid)
-        .orderBy('createdDate', descending: true)
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) => Invoice.fromFirestore(doc)).toList());
+  Stream<List<Invoice>?> getInvoicesStream() {
+    try {
+      final user = auth.currentUser;
+
+      if (user == null) {
+        throw Exception('User not authenticated');
+      }
+
+      final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
+
+      return userCollection.orderBy('createdDate', descending: true).snapshots().map((snapshot) => snapshot.docs.map((doc) => Invoice.fromFirestore(doc)).toList());
+    } catch (e) {
+      logger.e('FirebaseService -> getInvoicesStream() -> $e');
+      return Stream.value(null);
+    }
   }
 
   /// Add new invoice
-  Future<void> addNewInvoice(Invoice invoice) async {
-    final user = auth.currentUser;
+  Future<bool> addNewInvoice(Invoice invoice) async {
+    try {
+      final user = auth.currentUser;
 
-    if (user == null) {
-      throw Exception('User not authenticated');
+      if (user == null) {
+        throw Exception('User not authenticated');
+      }
+
+      final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
+
+      await userCollection.doc(invoice.id).set({
+        ...invoice.toMap(),
+        'userId': user.uid,
+      });
+
+      return true;
+    } catch (e) {
+      logger.e('FirebaseService -> addNewInvoice() -> $e');
+      return false;
     }
-
-    await invoicesCollection.doc(invoice.id).set({
-      ...invoice.toMap(),
-      'userId': user.uid,
-    });
   }
 
-  Future<void> replaceInvoice({
+  Future<bool> replaceInvoice({
     required String editedInvoiceId,
     required Invoice newInvoice,
   }) async {
-    final user = auth.currentUser;
+    try {
+      final user = auth.currentUser;
 
-    if (user == null) {
-      throw Exception('User not authenticated');
-    }
-
-    /// Check if the invoice belongs to the current user
-    final docSnapshot = await invoicesCollection.doc(editedInvoiceId).get();
-
-    if (docSnapshot.exists) {
-      final data = docSnapshot.data();
-
-      if (data?['userId'] != user.uid) {
-        throw Exception('Not authorized to edit this invoice');
+      if (user == null) {
+        throw Exception('User not authenticated');
       }
-    } else {
-      throw Exception('Invoice not found');
-    }
 
-    /// If authorized, proceed with the update
-    await invoicesCollection.doc(editedInvoiceId).set({
-      ...newInvoice.toMap(),
-      'userId': user.uid,
-    });
+      final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
+
+      /// Check if the invoice belongs to the current user
+      final docSnapshot = await userCollection.doc(editedInvoiceId).get();
+
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data();
+
+        if (data?['userId'] != user.uid) {
+          throw Exception('Not authorized to edit this invoice');
+        }
+      } else {
+        throw Exception('Invoice not found');
+      }
+
+      /// If authorized, proceed with the update
+      await userCollection.doc(editedInvoiceId).set({
+        ...newInvoice.toMap(),
+        'userId': user.uid,
+      });
+
+      return true;
+    } catch (e) {
+      logger.e('FirebaseService -> replaceInvoice() -> $e');
+      return false;
+    }
   }
 
-  Future<void> deleteInvoice(Invoice invoice) async {
-    final user = auth.currentUser;
+  Future<bool> deleteInvoice(Invoice invoice) async {
+    try {
+      final user = auth.currentUser;
 
-    if (user == null) {
-      throw Exception('User not authenticated');
-    }
-
-    /// Check if the invoice belongs to the current user
-    final docSnapshot = await invoicesCollection.doc(invoice.id).get();
-
-    if (docSnapshot.exists) {
-      final data = docSnapshot.data();
-
-      if (data?['userId'] != user.uid) {
-        throw Exception('Not authorized to delete this invoice');
+      if (user == null) {
+        throw Exception('User not authenticated');
       }
-    } else {
-      throw Exception('Invoice not found');
-    }
 
-    /// If authorized, proceed with the deletion
-    await invoicesCollection.doc(invoice.id).delete();
+      final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
+
+      /// Check if the invoice belongs to the current user
+      final docSnapshot = await userCollection.doc(invoice.id).get();
+
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data();
+
+        if (data?['userId'] != user.uid) {
+          throw Exception('Not authorized to delete this invoice');
+        }
+      } else {
+        throw Exception('Invoice not found');
+      }
+
+      /// If authorized, proceed with the deletion
+      await userCollection.doc(invoice.id).delete();
+
+      return true;
+    } catch (e) {
+      logger.e('FirebaseService -> deleteInvoice() -> $e');
+      return false;
+    }
   }
 }

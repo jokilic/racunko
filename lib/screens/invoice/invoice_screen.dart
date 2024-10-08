@@ -7,7 +7,6 @@ import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/icons.dart';
 import '../../theme/theme.dart';
-import '../invoices/invoices_controller.dart';
 import 'controllers/invoice_controller.dart';
 import 'controllers/invoice_date_controller.dart';
 import 'widgets/invoice_consumption.dart';
@@ -185,7 +184,6 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                       final newInvoice = await controller.createInvoice();
 
                       if (newInvoice != null) {
-                        getIt.get<InvoicesController>().updateState();
                         Navigator.of(context).pop();
                       }
                     }
