@@ -82,8 +82,6 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
   /// Checks if there are values in storage or passed into the controller
   /// Fills relevant [TextEditingController] with proper value
   void fillTextControllers() {
-    final fees = hive.getFees();
-
     /// User editing invoice, fill all controlles with values
     if (invoiceToEdit != null) {
       nameController.text = invoiceToEdit!.name;
@@ -98,6 +96,13 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
 
       waterLastMonthController.text = invoiceToEdit!.waterLastMonth.toInt().toString();
       waterNewMonthController.text = invoiceToEdit!.waterNewMonth.toInt().toString();
+
+      feesElectricityController.text = invoiceToEdit!.fees.feesElectricity.toStringAsFixed(2);
+      feesGasController.text = invoiceToEdit!.fees.feesGas.toStringAsFixed(2);
+      feesWaterController.text = invoiceToEdit!.fees.feesWater.toStringAsFixed(2);
+
+      utilityController.text = invoiceToEdit!.fees.utility.toStringAsFixed(2);
+      reserveController.text = invoiceToEdit!.fees.reserve.toStringAsFixed(2);
     }
 
     /// User is creating a new invoice and last invoice exists
@@ -113,11 +118,16 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
     }
 
     /// Fill out values in the `fees` section
-    feesElectricityController.text = fees.feesElectricity.toStringAsFixed(2);
-    feesGasController.text = fees.feesGas.toStringAsFixed(2);
-    feesWaterController.text = fees.feesWater.toStringAsFixed(2);
-    utilityController.text = fees.utility.toStringAsFixed(2);
-    reserveController.text = fees.reserve.toStringAsFixed(2);
+    if (invoiceToEdit == null) {
+      final fees = hive.getFees();
+
+      feesElectricityController.text = fees.feesElectricity.toStringAsFixed(2);
+      feesGasController.text = fees.feesGas.toStringAsFixed(2);
+      feesWaterController.text = fees.feesWater.toStringAsFixed(2);
+
+      utilityController.text = fees.utility.toStringAsFixed(2);
+      reserveController.text = fees.reserve.toStringAsFixed(2);
+    }
   }
 
   /// Triggered when `Create invoice` is pressed

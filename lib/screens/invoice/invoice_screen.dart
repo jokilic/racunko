@@ -14,6 +14,7 @@ import 'widgets/invoice_consumption.dart';
 import 'widgets/invoice_date.dart';
 import 'widgets/invoice_fees.dart';
 import 'widgets/invoice_name.dart';
+import 'widgets/invoice_price_dialog.dart';
 import 'widgets/invoice_reserve.dart';
 import 'widgets/invoice_utility.dart';
 
@@ -86,12 +87,13 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
           ),
           physics: const BouncingScrollPhysics(),
           children: [
+            ///
+            /// APP BAR
+            ///
             Row(
               children: [
                 IconButton.filled(
                   onPressed: Navigator.of(context).pop,
-                  color: Colors.red,
-                  highlightColor: Colors.yellow,
                   style: IconButton.styleFrom(
                     padding: const EdgeInsets.all(16),
                     backgroundColor: context.colors.white,
@@ -115,11 +117,19 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               ],
             ),
             const SizedBox(height: 32),
+
+            ///
+            /// NAME
+            ///
             InvoiceName(
               nameController: controller.nameController,
               onTextFieldChanged: controller.generateInvoiceFromTextFields,
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 32),
+
+            ///
+            /// DATE
+            ///
             InvoiceDate(
               onCalendarPressed: (context) async {
                 await controllerDate.openCalendar(context);
@@ -127,7 +137,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               },
               dates: dates,
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 32),
+
+            ///
+            /// CONSUMPTION
+            ///
             InvoiceConsumption(
               electricityHigherLastMonthController: controller.electricityHigherLastMonthController,
               electricityHigherNewMonthController: controller.electricityHigherNewMonthController,
@@ -139,7 +153,11 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               waterNewMonthController: controller.waterNewMonthController,
               onTextFieldChanged: controller.generateInvoiceFromTextFields,
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 32),
+
+            ///
+            /// FEES
+            ///
             InvoiceFees(
               feesGasController: controller.feesGasController,
               feesElectricityController: controller.feesElectricityController,
@@ -147,19 +165,31 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               onTextFieldChanged: controller.generateInvoiceFromTextFields,
               fees: fees,
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 32),
+
+            ///
+            /// UTILITY
+            ///
             InvoiceUtility(
               utilityController: controller.utilityController,
               onTextFieldChanged: controller.generateInvoiceFromTextFields,
               fees: fees,
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 32),
+
+            ///
+            /// RESERVE
+            ///
             InvoiceReserve(
               reserveController: controller.reserveController,
               onTextFieldChanged: controller.generateInvoiceFromTextFields,
               fees: fees,
             ),
             const SizedBox(height: 72),
+
+            ///
+            /// TOTAL
+            ///
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
@@ -183,6 +213,56 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
               ),
             ),
             const SizedBox(height: 24),
+
+            ///
+            /// PRICES
+            ///
+            OutlinedButton.icon(
+              onPressed: () => showDialog(
+                context: context,
+                builder: (context) => InvoicePriceDialog(
+                  prices: getIt.get<HiveService>().getPrices(),
+                  cancelPressed: Navigator.of(context).pop,
+                  savePressed: (newPrices) async {
+                    Navigator.of(context).pop();
+                    await getIt.get<HiveService>().addNewPrices(newPrices);
+                    controller.generateInvoiceFromTextFields();
+                  },
+                ),
+              ),
+              icon: Padding(
+                padding: const EdgeInsets.all(2),
+                child: Image.asset(
+                  RacunkoIcons.prices,
+                  height: 24,
+                  width: 24,
+                  color: context.colors.darkBlue,
+                ),
+              ),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                side: BorderSide(
+                  color: context.colors.darkBlue,
+                  width: 2.5,
+                ),
+                backgroundColor: context.colors.white,
+                foregroundColor: context.colors.darkBlue,
+                overlayColor: context.colors.darkBlue,
+                textStyle: context.textStyles.button,
+              ),
+              label: const Text('Cijene energenata'),
+            ),
+            const SizedBox(height: 16),
+
+            ///
+            /// CREATE INVOICE
+            ///
             ElevatedButton.icon(
               onPressed: invoice != null
                   ? () async {
@@ -207,7 +287,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
-                backgroundColor: context.colors.darkBlue,
+                backgroundColor: context.colors.green,
                 foregroundColor: context.colors.white,
                 overlayColor: context.colors.white,
                 disabledBackgroundColor: context.colors.grey,

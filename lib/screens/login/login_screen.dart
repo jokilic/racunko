@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:watch_it/watch_it.dart';
@@ -78,9 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               Center(
                 child: Image.asset(
-                  RacunkoIcons.illustrations[Random().nextInt(
-                    RacunkoIcons.illustrations.length,
-                  )],
+                  RacunkoIcons.illustration1,
                   height: 256,
                   width: 256,
                 ),

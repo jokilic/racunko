@@ -111,7 +111,7 @@ class InvoiceConsumption extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 32),
 
           ///
           /// GAS
@@ -146,7 +146,7 @@ class InvoiceConsumption extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 32),
 
           ///
           /// WATER

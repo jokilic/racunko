@@ -64,6 +64,16 @@ abstract class RacunkoTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w500,
   );
+  static const price = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+  );
+  static const priceBottom = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+  );
 }
 
 class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtension> {
@@ -79,6 +89,8 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
   final TextStyle invoiceListTileTitle;
   final TextStyle invoiceListTileAboveSubtitle;
   final TextStyle invoiceListTileSubtitle;
+  final TextStyle price;
+  final TextStyle priceBottom;
 
   const RacunkoTextThemesExtension({
     required this.title,
@@ -93,6 +105,8 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     required this.invoiceListTileTitle,
     required this.invoiceListTileAboveSubtitle,
     required this.invoiceListTileSubtitle,
+    required this.price,
+    required this.priceBottom,
   });
 
   @override
@@ -109,6 +123,8 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     TextStyle? invoiceListTileTitle,
     TextStyle? invoiceListTileAboveSubtitle,
     TextStyle? invoiceListTileSubtitle,
+    TextStyle? price,
+    TextStyle? priceBottom,
   }) =>
       RacunkoTextThemesExtension(
         title: title ?? this.title,
@@ -123,6 +139,8 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
         invoiceListTileTitle: invoiceListTileTitle ?? this.invoiceListTileTitle,
         invoiceListTileAboveSubtitle: invoiceListTileAboveSubtitle ?? this.invoiceListTileAboveSubtitle,
         invoiceListTileSubtitle: invoiceListTileSubtitle ?? this.invoiceListTileSubtitle,
+        price: price ?? this.price,
+        priceBottom: priceBottom ?? this.priceBottom,
       );
 
   @override
@@ -147,6 +165,8 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
       invoiceListTileTitle: TextStyle.lerp(invoiceListTileTitle, other.invoiceListTileTitle, t)!,
       invoiceListTileAboveSubtitle: TextStyle.lerp(invoiceListTileAboveSubtitle, other.invoiceListTileAboveSubtitle, t)!,
       invoiceListTileSubtitle: TextStyle.lerp(invoiceListTileSubtitle, other.invoiceListTileSubtitle, t)!,
+      price: TextStyle.lerp(price, other.price, t)!,
+      priceBottom: TextStyle.lerp(priceBottom, other.priceBottom, t)!,
     );
   }
 }

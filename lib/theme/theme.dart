@@ -66,6 +66,12 @@ class RacunkoTheme {
     invoiceListTileSubtitle: RacunkoTextStyles.invoiceListTileSubtitle.copyWith(
       color: lightAppColors.white,
     ),
+    price: RacunkoTextStyles.price.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
+    priceBottom: RacunkoTextStyles.priceBottom.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
   );
 }
 

@@ -52,7 +52,7 @@ class InvoiceDeleteDialog extends StatelessWidget {
           ),
         ],
         contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 4),
-        actionsPadding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+        actionsPadding: const EdgeInsets.all(8),
         backgroundColor: context.colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),

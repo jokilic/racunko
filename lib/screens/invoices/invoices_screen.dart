@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
@@ -83,6 +81,9 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
           ),
           physics: const BouncingScrollPhysics(),
           children: [
+            ///
+            /// APP BAR
+            ///
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
@@ -101,6 +102,10 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
               ),
             ),
             const SizedBox(height: 32),
+
+            ///
+            /// INVOICES
+            ///
             StreamBuilder(
               stream: firebase.getInvoicesStream(),
               builder: (context, snapshot) {
@@ -138,6 +143,9 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                   );
                 }
 
+                ///
+                /// SUCCESS
+                ///
                 final invoices = snapshot.data ?? [];
 
                 return Column(
@@ -145,9 +153,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                     if (invoices.isEmpty) ...[
                       const SizedBox(height: 56),
                       Image.asset(
-                        RacunkoIcons.illustrations[Random().nextInt(
-                          RacunkoIcons.illustrations.length,
-                        )],
+                        RacunkoIcons.illustration1,
                         height: 256,
                         width: 256,
                       ),
