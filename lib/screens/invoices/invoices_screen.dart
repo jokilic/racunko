@@ -50,7 +50,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
 
           openInvoice(
             context,
-            lastInvoice: invoices?.lastOrNull,
+            lastInvoice: invoices?.firstOrNull,
           );
         },
         label: Text(
@@ -163,7 +163,6 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                             invoice: invoice,
                             onPressed: () => openInvoice(
                               context,
-                              lastInvoice: invoices.lastOrNull,
                               invoiceToEdit: invoice,
                             ),
                             deletePressed: () async {
