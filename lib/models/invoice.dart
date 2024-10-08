@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 
 import 'fees.dart';
@@ -98,14 +99,19 @@ class Invoice {
         totalPrice: totalPrice ?? this.totalPrice,
       );
 
+  factory Invoice.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data()! as Map<String, dynamic>;
+    return Invoice.fromMap(data);
+  }
+
   Map<String, dynamic> toMap() => <String, dynamic>{
         'id': id,
-        'createdDate': createdDate.millisecondsSinceEpoch,
+        'createdDate': Timestamp.fromDate(createdDate),
         'prices': prices.toMap(),
         'fees': fees.toMap(),
         'name': name,
-        'monthFrom': monthFrom.millisecondsSinceEpoch,
-        'monthTo': monthTo.millisecondsSinceEpoch,
+        'monthFrom': Timestamp.fromDate(monthFrom),
+        'monthTo': Timestamp.fromDate(monthTo),
         'electricityHigherLastMonth': electricityHigherLastMonth,
         'electricityHigherNewMonth': electricityHigherNewMonth,
         'electricityLowerLastMonth': electricityLowerLastMonth,
@@ -119,12 +125,12 @@ class Invoice {
 
   factory Invoice.fromMap(Map<String, dynamic> map) => Invoice(
         id: map['id'] as String,
-        createdDate: DateTime.fromMillisecondsSinceEpoch(map['createdDate'] as int),
+        createdDate: (map['createdDate'] as Timestamp).toDate(),
         prices: Prices.fromMap(map['prices'] as Map<String, dynamic>),
         fees: Fees.fromMap(map['fees'] as Map<String, dynamic>),
         name: map['name'] as String,
-        monthFrom: DateTime.fromMillisecondsSinceEpoch(map['monthFrom'] as int),
-        monthTo: DateTime.fromMillisecondsSinceEpoch(map['monthTo'] as int),
+        monthFrom: (map['monthFrom'] as Timestamp).toDate(),
+        monthTo: (map['monthTo'] as Timestamp).toDate(),
         electricityHigherLastMonth: map['electricityHigherLastMonth'] as double,
         electricityHigherNewMonth: map['electricityHigherNewMonth'] as double,
         electricityLowerLastMonth: map['electricityLowerLastMonth'] as double,

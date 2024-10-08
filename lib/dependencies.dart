@@ -1,8 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
-import 'services/auth_service.dart';
 import 'services/firebase_service.dart';
-import 'services/firestore_service.dart';
 import 'services/hive_service.dart';
 import 'services/logger_service.dart';
 
@@ -35,22 +35,10 @@ void initializeServices() => getIt
   ..registerSingletonAsync(
     () async => FirebaseService(
       logger: getIt.get<LoggerService>(),
+      auth: FirebaseAuth.instance,
+      firestore: FirebaseFirestore.instance,
     ),
     dependsOn: [LoggerService],
-  )
-  ..registerSingletonAsync(
-    () async => AuthService(
-      logger: getIt.get<LoggerService>(),
-      firebase: getIt.get<FirebaseService>(),
-    ),
-    dependsOn: [LoggerService, FirebaseService],
-  )
-  ..registerSingletonAsync(
-    () async => FirestoreService(
-      logger: getIt.get<LoggerService>(),
-      firebase: getIt.get<FirebaseService>(),
-    ),
-    dependsOn: [LoggerService, FirebaseService],
   )
   ..registerSingletonAsync(
     () async {

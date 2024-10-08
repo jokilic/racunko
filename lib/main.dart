@@ -1,13 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:watch_it/watch_it.dart';
 
 import 'dependencies.dart';
 import 'firebase_options.dart';
 import 'screens/invoices/invoices_screen.dart';
+import 'screens/login/login_screen.dart';
 import 'theme/theme.dart';
 import 'widgets/racunko_loader.dart';
 
@@ -38,13 +41,37 @@ Future<void> main() async {
   runApp(RacunkoApp());
 }
 
-class RacunkoApp extends StatelessWidget {
+class RacunkoApp extends WatchingWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         localizationsDelegates: GlobalMaterialLocalizations.delegates,
         supportedLocales: const [Locale('hr')],
         debugShowCheckedModeBanner: false,
-        home: InvoicesScreen(),
+        home: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            ///
+            /// LOADING
+            ///
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Scaffold(
+                body: CircularProgressIndicator(),
+              );
+            }
+
+            ///
+            /// USER LOGGED IN
+            ///
+            if (snapshot.hasData) {
+              return InvoicesScreen();
+            }
+
+            ///
+            /// NO USER
+            ///
+            return LoginScreen();
+          },
+        ),
         onGenerateTitle: (_) => 'Računko',
         theme: RacunkoTheme.light,
         builder: (_, child) => kDebugMode
@@ -67,12 +94,4 @@ class RacunkoApp extends StatelessWidget {
                   ),
                 ),
       );
-
-  // const MaterialApp(
-  //       home: Scaffold(
-  //         body: Center(
-  //           child: Text('Hello World!'),
-  //         ),
-  //       ),
-  //     );
 }
