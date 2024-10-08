@@ -104,10 +104,7 @@ class FirebaseService {
 
       final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
 
-      await userCollection.doc(invoice.id).set({
-        ...invoice.toMap(),
-        'userId': user.uid,
-      });
+      await userCollection.doc(invoice.id).set(invoice.toMap());
 
       return true;
     } catch (e) {
@@ -143,10 +140,7 @@ class FirebaseService {
       }
 
       /// If authorized, proceed with the update
-      await userCollection.doc(editedInvoiceId).set({
-        ...newInvoice.toMap(),
-        'userId': user.uid,
-      });
+      await userCollection.doc(editedInvoiceId).set(newInvoice.toMap());
 
       return true;
     } catch (e) {
