@@ -9,6 +9,7 @@ import 'package:watch_it/watch_it.dart';
 
 import 'dependencies.dart';
 import 'firebase_options.dart';
+import 'screens/invoices/invoices_loading.dart';
 import 'screens/invoices/invoices_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'theme/theme.dart';
@@ -54,9 +55,7 @@ class RacunkoApp extends WatchingWidget {
             /// LOADING
             ///
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Scaffold(
-                body: CircularProgressIndicator(),
-              );
+              return InvoicesLoading();
             }
 
             ///

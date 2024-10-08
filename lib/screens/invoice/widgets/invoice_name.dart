@@ -32,6 +32,7 @@ class InvoiceName extends StatelessWidget {
               hintText: 'Naziv',
               onChanged: (_) => onTextFieldChanged(),
               isCurrency: false,
+              verticalPadding: 16,
             ),
           ),
         ],

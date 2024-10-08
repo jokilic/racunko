@@ -30,7 +30,7 @@ class InvoiceListTile extends StatelessWidget {
           leadingActions: [
             SwipeAction(
               onTap: (handler) async {
-                await handler(true);
+                await handler(false);
                 await deletePressed();
               },
               color: context.colors.red,

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:watch_it/watch_it.dart';
 
@@ -11,6 +12,7 @@ import '../../services/logger_service.dart';
 import '../../theme/icons.dart';
 import '../../theme/theme.dart';
 import 'invoices_controller.dart';
+import 'widgets/invoice_delete_dialog.dart';
 import 'widgets/invoice_list_tile.dart';
 
 class InvoicesScreen extends WatchingStatefulWidget {
@@ -104,8 +106,24 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                 /// LOADING
                 ///
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Column(
+                    children: [
+                      const SizedBox(height: 64),
+                      SpinKitPouringHourGlassRefined(
+                        color: context.colors.darkBlue,
+                        size: 48,
+                      ),
+                      const SizedBox(height: 24),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(
+                            'Učitavanje...',
+                            style: context.textStyles.subtitle,
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 }
 
@@ -166,7 +184,17 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                               invoiceToEdit: invoice,
                             ),
                             deletePressed: () async {
-                              await getIt.get<FirebaseService>().deleteInvoice(invoice);
+                              await showDialog(
+                                context: context,
+                                builder: (context) => InvoiceDeleteDialog(
+                                  text: userName != null ? '$userName, jesi li siguran da želiš obrisati ovaj račun?' : 'Jesi li siguran da želiš obrisati ovaj račun?',
+                                  cancelPressed: Navigator.of(context).pop,
+                                  deletePressed: () {
+                                    Navigator.of(context).pop();
+                                    getIt.get<FirebaseService>().deleteInvoice(invoice);
+                                  },
+                                ),
+                              );
                             },
                             generatePdfPressed: () async {
                               print('Generate PDF pressed');

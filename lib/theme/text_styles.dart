@@ -22,14 +22,19 @@ abstract class RacunkoTextStyles {
     fontSize: 18,
     fontWeight: FontWeight.w600,
   );
+  static const dialogText = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+  );
   static const inputText = TextStyle(
     fontFamily: 'Outfit',
     fontSize: 20,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
   );
   static const hintText = TextStyle(
     fontFamily: 'Outfit',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: FontWeight.w400,
   );
   static const fab = TextStyle(
@@ -65,6 +70,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
   final TextStyle subtitle;
   final TextStyle button;
   final TextStyle text;
+  final TextStyle dialogText;
   final TextStyle inputText;
   final TextStyle hintText;
   final TextStyle fab;
@@ -78,6 +84,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     required this.subtitle,
     required this.button,
     required this.text,
+    required this.dialogText,
     required this.inputText,
     required this.hintText,
     required this.fab,
@@ -93,6 +100,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     TextStyle? subtitle,
     TextStyle? button,
     TextStyle? text,
+    TextStyle? dialogText,
     TextStyle? inputText,
     TextStyle? hintText,
     TextStyle? fab,
@@ -106,6 +114,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
         subtitle: subtitle ?? this.subtitle,
         button: button ?? this.button,
         text: text ?? this.text,
+        dialogText: dialogText ?? this.dialogText,
         inputText: inputText ?? this.inputText,
         hintText: hintText ?? this.hintText,
         fab: fab ?? this.fab,
@@ -129,6 +138,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
       subtitle: TextStyle.lerp(subtitle, other.subtitle, t)!,
       button: TextStyle.lerp(button, other.button, t)!,
       text: TextStyle.lerp(text, other.text, t)!,
+      dialogText: TextStyle.lerp(dialogText, other.dialogText, t)!,
       inputText: TextStyle.lerp(inputText, other.inputText, t)!,
       hintText: TextStyle.lerp(hintText, other.hintText, t)!,
       fab: TextStyle.lerp(fab, other.fab, t)!,

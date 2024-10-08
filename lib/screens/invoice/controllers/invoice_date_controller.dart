@@ -64,8 +64,7 @@ class InvoiceDateController extends ValueNotifier<({DateTime? monthFrom, DateTim
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            iconColor: context.colors.white,
-            foregroundColor: context.colors.white,
+            foregroundColor: context.colors.darkBlue,
             textStyle: context.textStyles.button,
           ),
           child: Text(
@@ -80,8 +79,7 @@ class InvoiceDateController extends ValueNotifier<({DateTime? monthFrom, DateTim
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            iconColor: context.colors.white,
-            foregroundColor: context.colors.white,
+            foregroundColor: context.colors.darkBlue,
             textStyle: context.textStyles.button,
           ),
           child: Text(

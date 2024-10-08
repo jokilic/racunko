@@ -2,8 +2,9 @@
 
 A new Flutter project.
 
-- [ ] Update textfields
-- [ ] Update invoices list tile colors
-- [ ] Update LoginScreen
-- [ ] Replace CircularProgressIndicators with proper loaders
-- [ ] Stavi dialog ako netko stisne delete
+- [ ] Stavi boje u invoice list tile
+    - [ ] Poslan invoice (nije plaćen)
+    - [ ] Kasni s uplatom (ako je invoice stariji od 15 dana od 'endDate')
+    - [ ] Plaćen
+- [ ] Promijeni material ikone s onima sa FlatIcon
+- [ ] Generiraj PDF

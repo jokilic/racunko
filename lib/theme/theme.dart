@@ -42,6 +42,9 @@ class RacunkoTheme {
     text: RacunkoTextStyles.text.copyWith(
       color: lightAppColors.darkBlue,
     ),
+    dialogText: RacunkoTextStyles.dialogText.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
     inputText: RacunkoTextStyles.inputText.copyWith(
       color: lightAppColors.darkBlue,
     ),

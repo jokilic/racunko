@@ -126,19 +126,6 @@ class FirebaseService {
 
       final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
 
-      /// Check if the invoice belongs to the current user
-      final docSnapshot = await userCollection.doc(editedInvoiceId).get();
-
-      if (docSnapshot.exists) {
-        final data = docSnapshot.data();
-
-        if (data?['userId'] != user.uid) {
-          throw Exception('Not authorized to edit this invoice');
-        }
-      } else {
-        throw Exception('Invoice not found');
-      }
-
       /// If authorized, proceed with the update
       await userCollection.doc(editedInvoiceId).set(newInvoice.toMap());
 
@@ -158,19 +145,6 @@ class FirebaseService {
       }
 
       final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
-
-      /// Check if the invoice belongs to the current user
-      final docSnapshot = await userCollection.doc(invoice.id).get();
-
-      if (docSnapshot.exists) {
-        final data = docSnapshot.data();
-
-        if (data?['userId'] != user.uid) {
-          throw Exception('Not authorized to delete this invoice');
-        }
-      } else {
-        throw Exception('Invoice not found');
-      }
 
       /// If authorized, proceed with the deletion
       await userCollection.doc(invoice.id).delete();
