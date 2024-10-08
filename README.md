@@ -6,6 +6,6 @@ A new Flutter project.
     - [ ] Poslan invoice (nije plaćen)
     - [ ] Kasni s uplatom (ako je invoice stariji od 15 dana od 'endDate')
     - [ ] Plaćen
-- [ ] Promijeni material ikone s onima sa FlatIcon
+- [ ] Dodaj mogućnost promjene cijena struje, plina i vode
 - [ ] Generiraj PDF
 - [ ] Napravi ikonu i splash screen

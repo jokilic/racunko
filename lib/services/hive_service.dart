@@ -35,29 +35,6 @@ class HiveService implements Disposable {
 
     prices = await Hive.openBox<Prices>('pricesBox');
     fees = await Hive.openBox<Fees>('feesBox');
-
-    if (prices.isEmpty) {
-      await addNewPrices(
-        Prices(
-          electricityHigherPrice: RacunkoConstants.electricityHigherPrice,
-          electricityLowerPrice: RacunkoConstants.electricityLowerPrice,
-          gasPrice: RacunkoConstants.gasPrice,
-          waterPrice: RacunkoConstants.waterPrice,
-        ),
-      );
-    }
-
-    if (fees.isEmpty) {
-      await addNewFees(
-        Fees(
-          feesElectricity: RacunkoConstants.feesElectricity,
-          feesGas: RacunkoConstants.feesGas,
-          feesWater: RacunkoConstants.feesWater,
-          utility: RacunkoConstants.utility,
-          reserve: RacunkoConstants.reserve,
-        ),
-      );
-    }
   }
 
   ///
@@ -75,9 +52,24 @@ class HiveService implements Disposable {
   /// METHODS
   ///
 
-  Prices? getPrices() => prices.values.toList().firstOrNull;
+  Prices getPrices() =>
+      prices.values.toList().firstOrNull ??
+      Prices(
+        electricityHigherPrice: RacunkoConstants.electricityHigherPrice,
+        electricityLowerPrice: RacunkoConstants.electricityLowerPrice,
+        gasPrice: RacunkoConstants.gasPrice,
+        waterPrice: RacunkoConstants.waterPrice,
+      );
 
-  Fees? getFees() => fees.values.toList().firstOrNull;
+  Fees getFees() =>
+      fees.values.toList().firstOrNull ??
+      Fees(
+        feesElectricity: RacunkoConstants.feesElectricity,
+        feesGas: RacunkoConstants.feesGas,
+        feesWater: RacunkoConstants.feesWater,
+        utility: RacunkoConstants.utility,
+        reserve: RacunkoConstants.reserve,
+      );
 
   Future<void> addNewPrices(Prices newPrices) async {
     await prices.clear();

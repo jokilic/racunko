@@ -114,10 +114,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: ElevatedButton.icon(
                   onPressed: loginButtonState ? controller.loginUser : null,
-                  icon: const Icon(
-                    // TODO: Update
-                    Icons.login,
-                    size: 28,
+                  icon: Padding(
+                    padding: const EdgeInsets.only(right: 4),
+                    child: Image.asset(
+                      RacunkoIcons.login,
+                      height: 28,
+                      width: 28,
+                      color: context.colors.white,
+                    ),
                   ),
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 0),

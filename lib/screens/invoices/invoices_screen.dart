@@ -65,10 +65,11 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
         backgroundColor: context.colors.green,
         splashColor: context.colors.green,
         foregroundColor: context.colors.white,
-        icon: const Icon(
-          // TODO: Update
-          Icons.receipt_long,
-          size: 28,
+        icon: Image.asset(
+          RacunkoIcons.receipt,
+          height: 28,
+          width: 28,
+          color: context.colors.white,
         ),
       ),
       body: SafeArea(

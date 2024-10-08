@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../theme/icons.dart';
 import '../../../theme/theme.dart';
 
 class InvoiceDate extends StatelessWidget {
@@ -39,14 +40,18 @@ class InvoiceDate extends StatelessWidget {
         const SizedBox(height: 16),
         OutlinedButton.icon(
           onPressed: () => onCalendarPressed(context),
-          icon: const Icon(
-            // TODO: Update
-            Icons.calendar_month,
-            size: 28,
+          icon: Padding(
+            padding: const EdgeInsets.only(right: 6),
+            child: Image.asset(
+              RacunkoIcons.calendar,
+              height: 28,
+              width: 28,
+              color: context.colors.darkBlue,
+            ),
           ),
           style: OutlinedButton.styleFrom(
             padding: const EdgeInsets.symmetric(
-              horizontal: 24,
+              horizontal: 20,
               vertical: 12,
             ),
             shape: RoundedRectangleBorder(

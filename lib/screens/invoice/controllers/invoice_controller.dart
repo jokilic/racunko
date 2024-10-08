@@ -112,13 +112,12 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
       waterLastMonthController.text = lastInvoice!.waterNewMonth.toInt().toString();
     }
 
-    if (fees != null) {
-      feesElectricityController.text = fees.feesElectricity.toStringAsFixed(2);
-      feesGasController.text = fees.feesGas.toStringAsFixed(2);
-      feesWaterController.text = fees.feesWater.toStringAsFixed(2);
-      utilityController.text = fees.utility.toStringAsFixed(2);
-      reserveController.text = fees.reserve.toStringAsFixed(2);
-    }
+    /// Fill out values in the `fees` section
+    feesElectricityController.text = fees.feesElectricity.toStringAsFixed(2);
+    feesGasController.text = fees.feesGas.toStringAsFixed(2);
+    feesWaterController.text = fees.feesWater.toStringAsFixed(2);
+    utilityController.text = fees.utility.toStringAsFixed(2);
+    reserveController.text = fees.reserve.toStringAsFixed(2);
   }
 
   /// Triggered when `Create invoice` is pressed
@@ -258,52 +257,51 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
     /// Prices
     final prices = hive.getPrices();
 
-    if (prices != null) {
-      final sum = double.tryParse(
-        ((gasDifference * prices.gasPrice) +
-                (electricityHigherDifference * prices.electricityHigherPrice) +
-                (electricityLowerDifference * prices.electricityLowerPrice) +
-                (waterDifference * prices.waterPrice) +
-                feesGas +
-                feesElectricity +
-                feesWater +
-                utility +
-                reserve)
-            .toStringAsFixed(2),
+    /// Calculate `sum`
+    final sum = double.tryParse(
+      ((gasDifference * prices.gasPrice) +
+              (electricityHigherDifference * prices.electricityHigherPrice) +
+              (electricityLowerDifference * prices.electricityLowerPrice) +
+              (waterDifference * prices.waterPrice) +
+              feesGas +
+              feesElectricity +
+              feesWater +
+              utility +
+              reserve)
+          .toStringAsFixed(2),
+    );
+
+    /// All is good, generate new [Invoice] & update `state`
+    if (sum != null) {
+      final newInvoice = Invoice(
+        id: invoiceToEdit != null ? invoiceToEdit!.id : uuid.v1(),
+        createdDate: DateTime.now(),
+        prices: prices,
+        fees: Fees(
+          feesElectricity: feesElectricity,
+          feesGas: feesGas,
+          feesWater: feesWater,
+          utility: utility,
+          reserve: reserve,
+        ),
+        name: nameController.text.trim(),
+        monthFrom: dateController.value.monthFrom!,
+        monthTo: dateController.value.monthTo!,
+        electricityHigherLastMonth: electricityHigherLastMonth,
+        electricityHigherNewMonth: electricityHigherNewMonth,
+        electricityLowerLastMonth: electricityLowerLastMonth,
+        electricityLowerNewMonth: electricityLowerNewMonth,
+        gasLastMonth: gasLastMonth,
+        gasNewMonth: gasNewMonth,
+        waterLastMonth: waterLastMonth,
+        waterNewMonth: waterNewMonth,
+        totalPrice: sum,
       );
 
-      /// All is good, generate new [Invoice] & update `state`
-      if (sum != null) {
-        final newInvoice = Invoice(
-          id: invoiceToEdit != null ? invoiceToEdit!.id : uuid.v1(),
-          createdDate: DateTime.now(),
-          prices: prices,
-          fees: Fees(
-            feesElectricity: feesElectricity,
-            feesGas: feesGas,
-            feesWater: feesWater,
-            utility: utility,
-            reserve: reserve,
-          ),
-          name: nameController.text.trim(),
-          monthFrom: dateController.value.monthFrom!,
-          monthTo: dateController.value.monthTo!,
-          electricityHigherLastMonth: electricityHigherLastMonth,
-          electricityHigherNewMonth: electricityHigherNewMonth,
-          electricityLowerLastMonth: electricityLowerLastMonth,
-          electricityLowerNewMonth: electricityLowerNewMonth,
-          gasLastMonth: gasLastMonth,
-          gasNewMonth: gasNewMonth,
-          waterLastMonth: waterLastMonth,
-          waterNewMonth: waterNewMonth,
-          totalPrice: sum,
-        );
+      logger.d('New invoice generated');
 
-        logger.d('New invoice generated');
-
-        value = newInvoice;
-        return newInvoice;
-      }
+      value = newInvoice;
+      return newInvoice;
     }
 
     value = null;

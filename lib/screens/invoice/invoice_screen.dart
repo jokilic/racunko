@@ -193,10 +193,14 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                       }
                     }
                   : null,
-              icon: const Icon(
-                // TODO: Update
-                Icons.receipt_long,
-                size: 28,
+              icon: Padding(
+                padding: const EdgeInsets.only(right: 2),
+                child: Image.asset(
+                  RacunkoIcons.receipt,
+                  height: 28,
+                  width: 28,
+                  color: context.colors.white,
+                ),
               ),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
