@@ -194,7 +194,9 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                             deletePressed: () => showDialog(
                               context: context,
                               builder: (context) => InvoiceDeleteDialog(
-                                text: userName != null ? '$userName, jesi li siguran da želiš obrisati ovaj račun?' : 'Jesi li siguran da želiš obrisati ovaj račun?',
+                                text: userName != null
+                                    ? '${userName[0].toUpperCase()}${userName.substring(1)}, jesi li siguran da želiš obrisati ovaj račun?'
+                                    : 'Jesi li siguran da želiš obrisati ovaj račun?',
                                 cancelPressed: Navigator.of(context).pop,
                                 deletePressed: () {
                                   Navigator.of(context).pop();
