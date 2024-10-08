@@ -4,13 +4,13 @@ import '../../../models/fees.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/racunko_text_field.dart';
 
-class CreateInvoiceUtility extends StatelessWidget {
-  final TextEditingController utilityController;
+class InvoiceReserve extends StatelessWidget {
+  final TextEditingController reserveController;
   final Function() onTextFieldChanged;
   final Fees? fees;
 
-  const CreateInvoiceUtility({
-    required this.utilityController,
+  const InvoiceReserve({
+    required this.reserveController,
     required this.onTextFieldChanged,
     required this.fees,
   });
@@ -22,7 +22,7 @@ class CreateInvoiceUtility extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                'Komunalna naknada',
+                'Pričuva',
                 style: context.textStyles.subtitle,
               ),
             ),
@@ -31,8 +31,8 @@ class CreateInvoiceUtility extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: RacunkoTextField(
-              textController: utilityController,
-              hintText: fees?.utility.toStringAsFixed(2) ?? '---',
+              textController: reserveController,
+              hintText: fees?.reserve.toStringAsFixed(2) ?? '---',
               onChanged: (_) => onTextFieldChanged(),
             ),
           ),

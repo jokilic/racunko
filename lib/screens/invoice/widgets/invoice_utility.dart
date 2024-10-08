@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/fees.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/racunko_text_field.dart';
 
-class CreateInvoiceName extends StatelessWidget {
-  final TextEditingController nameController;
+class InvoiceUtility extends StatelessWidget {
+  final TextEditingController utilityController;
   final Function() onTextFieldChanged;
+  final Fees? fees;
 
-  const CreateInvoiceName({
-    required this.nameController,
+  const InvoiceUtility({
+    required this.utilityController,
     required this.onTextFieldChanged,
+    required this.fees,
   });
 
   @override
@@ -19,7 +22,7 @@ class CreateInvoiceName extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                'Naziv',
+                'Komunalna naknada',
                 style: context.textStyles.subtitle,
               ),
             ),
@@ -28,10 +31,9 @@ class CreateInvoiceName extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: RacunkoTextField(
-              textController: nameController,
-              hintText: 'Naziv',
+              textController: utilityController,
+              hintText: fees?.utility.toStringAsFixed(2) ?? '---',
               onChanged: (_) => onTextFieldChanged(),
-              isCurrency: false,
             ),
           ),
         ],

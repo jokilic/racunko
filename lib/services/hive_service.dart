@@ -96,27 +96,18 @@ class HiveService implements Disposable {
     await fees.add(newFees);
   }
 
-  Future<void> addNewInvoice(Invoice invoice) async {
-    final key = invoice.id;
-    await invoices.put(key, invoice);
-
-    print('Added new invoice with key: $key');
-  }
+  Future<void> addNewInvoice(Invoice invoice) async => invoices.put(
+        invoice.id,
+        invoice,
+      );
 
   Future<void> replaceInvoice({
-    required String idOfEditedInvoice,
+    required String editedInvoiceId,
     required Invoice newInvoice,
   }) async {
-    final key = idOfEditedInvoice;
-    final existingInvoice = invoices.get(key);
-
-    if (existingInvoice == null) {
-      print('No existing invoice found for key: $key');
-      return;
-    }
-
-    await invoices.delete(key);
-    await invoices.put(key, newInvoice);
-    print('Replaced invoice with key: $key');
+    await invoices.delete(editedInvoiceId);
+    await invoices.put(editedInvoiceId, newInvoice);
   }
+
+  Future<void> deleteInvoice(Invoice invoice) async => invoices.delete(invoice.id);
 }

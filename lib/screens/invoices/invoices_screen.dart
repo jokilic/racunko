@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../dependencies.dart';
@@ -16,6 +19,11 @@ class InvoicesScreen extends WatchingStatefulWidget {
 }
 
 class _InvoicesScreenState extends State<InvoicesScreen> {
+  final illustrations = [
+    RacunkoIcons.illustration1,
+    RacunkoIcons.illustration2,
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -40,10 +48,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => openCreateInvoice(
-          context,
-          invoiceToEdit: null,
-        ),
+        onPressed: () => openInvoice(context),
         label: Text(
           'Novi račun',
           style: context.textStyles.fab,
@@ -51,8 +56,8 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        backgroundColor: context.colors.green,
-        splashColor: context.colors.green,
+        backgroundColor: context.colors.darkBlue,
+        splashColor: context.colors.darkBlue,
         foregroundColor: context.colors.white,
         icon: const Icon(
           Icons.receipt_long,
@@ -77,22 +82,43 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                 style: context.textStyles.title,
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(
+                'Danas je ${DateFormat(
+                  'd. MMMM y.',
+                  'hr',
+                ).format(DateTime.now())}',
+                style: context.textStyles.text,
+              ),
+            ),
             const SizedBox(height: 32),
             if (invoices.isEmpty) ...[
+              const SizedBox(height: 56),
+              Image.asset(
+                illustrations[Random().nextInt(illustrations.length)],
+                height: 256,
+                width: 256,
+              ),
+              const SizedBox(height: 40),
               Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Text(
-                    'Nemaš računa',
+                    'Trenutno nemaš računa',
                     style: context.textStyles.subtitle,
                   ),
                 ),
               ),
-              const SizedBox(height: 56),
-              Image.asset(
-                RacunkoIcons.illustration1,
-                height: 256,
-                width: 256,
+              const SizedBox(height: 2),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+                    "Stisni tipku 'Novi račun'",
+                    style: context.textStyles.text,
+                  ),
+                ),
               ),
             ] else ...[
               ListView.separated(
@@ -104,10 +130,17 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
 
                   return InvoiceListTile(
                     invoice: invoice,
-                    onPressed: () => openCreateInvoice(
+                    onPressed: () => openInvoice(
                       context,
                       invoiceToEdit: invoice,
                     ),
+                    deletePressed: () async {
+                      await getIt.get<HiveService>().deleteInvoice(invoice);
+                      getIt.get<InvoicesController>().updateState();
+                    },
+                    generatePdfPressed: () async {
+                      print('Generate PDF pressed');
+                    },
                   );
                 },
                 separatorBuilder: (_, __) => const SizedBox(height: 16),

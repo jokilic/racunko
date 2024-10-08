@@ -4,14 +4,14 @@ import '../../../models/fees.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/racunko_text_field.dart';
 
-class CreateInvoiceFees extends StatelessWidget {
+class InvoiceFees extends StatelessWidget {
   final TextEditingController feesGasController;
   final TextEditingController feesElectricityController;
   final TextEditingController feesWaterController;
   final Function() onTextFieldChanged;
   final Fees? fees;
 
-  const CreateInvoiceFees({
+  const InvoiceFees({
     required this.feesGasController,
     required this.feesElectricityController,
     required this.feesWaterController,

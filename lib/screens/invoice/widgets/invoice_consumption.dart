@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/racunko_text_field.dart';
 
-class CreateInvoiceConsumption extends StatelessWidget {
+class InvoiceConsumption extends StatelessWidget {
   final TextEditingController electricityHigherLastMonthController;
   final TextEditingController electricityHigherNewMonthController;
   final TextEditingController electricityLowerLastMonthController;
@@ -14,7 +14,7 @@ class CreateInvoiceConsumption extends StatelessWidget {
   final TextEditingController waterNewMonthController;
   final Function() onTextFieldChanged;
 
-  const CreateInvoiceConsumption({
+  const InvoiceConsumption({
     required this.electricityHigherLastMonthController,
     required this.electricityHigherNewMonthController,
     required this.electricityLowerLastMonthController,

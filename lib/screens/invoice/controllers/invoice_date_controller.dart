@@ -8,13 +8,13 @@ import '../../../services/logger_service.dart';
 import '../../../theme/icons.dart';
 import '../../../theme/theme.dart';
 
-class CreateInvoiceDateController extends ValueNotifier<({DateTime? monthFrom, DateTime? monthTo})> {
+class InvoiceDateController extends ValueNotifier<({DateTime? monthFrom, DateTime? monthTo})> {
   final LoggerService logger;
   final Invoice? invoiceToEdit;
 
-  CreateInvoiceDateController({
+  InvoiceDateController({
     required this.logger,
-    required this.invoiceToEdit,
+    this.invoiceToEdit,
   }) : super((monthFrom: null, monthTo: null));
 
   ///

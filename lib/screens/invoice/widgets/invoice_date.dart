@@ -3,11 +3,11 @@ import 'package:intl/intl.dart';
 
 import '../../../theme/theme.dart';
 
-class CreateInvoiceDate extends StatelessWidget {
+class InvoiceDate extends StatelessWidget {
   final Function(BuildContext context) onCalendarPressed;
   final ({DateTime? monthFrom, DateTime? monthTo}) dates;
 
-  const CreateInvoiceDate({
+  const InvoiceDate({
     required this.onCalendarPressed,
     required this.dates,
   });

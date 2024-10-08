@@ -6,19 +6,19 @@ import '../../../models/fees.dart';
 import '../../../models/invoice.dart';
 import '../../../services/hive_service.dart';
 import '../../../services/logger_service.dart';
-import 'create_invoice_date_controller.dart';
+import 'invoice_date_controller.dart';
 
-class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposable {
+class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
   final LoggerService logger;
   final HiveService hive;
-  final CreateInvoiceDateController dateController;
+  final InvoiceDateController dateController;
   final Invoice? invoiceToEdit;
 
-  CreateInvoiceController({
+  InvoiceController({
     required this.logger,
     required this.hive,
     required this.dateController,
-    required this.invoiceToEdit,
+    this.invoiceToEdit,
   }) : super(null);
 
   ///
@@ -138,7 +138,7 @@ class CreateInvoiceController extends ValueNotifier<Invoice?> implements Disposa
       /// Edit passed invoice
       if (invoiceToEdit != null) {
         await hive.replaceInvoice(
-          idOfEditedInvoice: invoiceToEdit!.id,
+          editedInvoiceId: invoiceToEdit!.id,
           newInvoice: newInvoice,
         );
       }
