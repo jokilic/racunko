@@ -24,8 +24,9 @@ abstract class RacunkoTextStyles {
   );
   static const dialogText = TextStyle(
     fontFamily: 'Outfit',
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    height: 1.4,
   );
   static const inputText = TextStyle(
     fontFamily: 'Outfit',

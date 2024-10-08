@@ -66,7 +66,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
         splashColor: context.colors.green,
         foregroundColor: context.colors.white,
         icon: Image.asset(
-          RacunkoIcons.receipt,
+          RacunkoIcons.invoice,
           height: 28,
           width: 28,
           color: context.colors.white,
@@ -185,19 +185,17 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                               context,
                               invoiceToEdit: invoice,
                             ),
-                            deletePressed: () async {
-                              await showDialog(
-                                context: context,
-                                builder: (context) => InvoiceDeleteDialog(
-                                  text: userName != null ? '$userName, jesi li siguran da želiš obrisati ovaj račun?' : 'Jesi li siguran da želiš obrisati ovaj račun?',
-                                  cancelPressed: Navigator.of(context).pop,
-                                  deletePressed: () {
-                                    Navigator.of(context).pop();
-                                    getIt.get<FirebaseService>().deleteInvoice(invoice);
-                                  },
-                                ),
-                              );
-                            },
+                            deletePressed: () => showDialog(
+                              context: context,
+                              builder: (context) => InvoiceDeleteDialog(
+                                text: userName != null ? '$userName, jesi li siguran da želiš obrisati ovaj račun?' : 'Jesi li siguran da želiš obrisati ovaj račun?',
+                                cancelPressed: Navigator.of(context).pop,
+                                deletePressed: () {
+                                  Navigator.of(context).pop();
+                                  getIt.get<FirebaseService>().deleteInvoice(invoice);
+                                },
+                              ),
+                            ),
                             generatePdfPressed: () async {
                               print('Generate PDF pressed');
                             },
