@@ -8,3 +8,4 @@ A new Flutter project.
     - [ ] Plaćen
 - [ ] Promijeni material ikone s onima sa FlatIcon
 - [ ] Generiraj PDF
+- [ ] Napravi ikonu i splash screen

@@ -102,6 +102,7 @@ class InvoiceListTile extends StatelessWidget {
             ),
             trailing: Column(
               children: [
+                // TODO: Update
                 const Icon(Icons.euro),
                 const SizedBox(height: 8),
                 Flexible(

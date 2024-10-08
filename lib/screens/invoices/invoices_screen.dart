@@ -66,6 +66,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
         splashColor: context.colors.green,
         foregroundColor: context.colors.white,
         icon: const Icon(
+          // TODO: Update
           Icons.receipt_long,
           size: 28,
         ),
