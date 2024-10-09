@@ -45,6 +45,9 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
     final userName = watchIt<InvoicesController>().value;
 
     return Scaffold(
+      ///
+      /// FAB
+      ///
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           final invoices = await firebase.getInvoices();
@@ -143,7 +146,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                     children: [
                       const SizedBox(height: 56),
                       Image.asset(
-                        RacunkoIcons.illustration1,
+                        RacunkoIcons.illustration,
                         height: 256,
                         width: 256,
                       ),
@@ -183,7 +186,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                     if (invoices.isEmpty) ...[
                       const SizedBox(height: 56),
                       Image.asset(
-                        RacunkoIcons.illustration1,
+                        RacunkoIcons.illustration,
                         height: 256,
                         width: 256,
                       ),
@@ -234,9 +237,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                                 },
                               ),
                             ),
-                            generatePdfPressed: () async {
-                              print('Generate PDF pressed');
-                            },
+                            generatePdfPressed: () => getIt.get<InvoicesController>().generatePDF(invoice),
                           );
                         },
                         separatorBuilder: (_, __) => const SizedBox(height: 16),

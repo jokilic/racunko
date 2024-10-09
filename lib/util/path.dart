@@ -3,6 +3,11 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
+Future<Directory?> getPDFTemporaryDirectory() async {
+  final directory = await getTemporaryDirectory();
+  return directory;
+}
+
 Future<Directory?> getHiveDirectory() async {
   if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) {
     final directory = await getApplicationDocumentsDirectory();

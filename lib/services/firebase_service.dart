@@ -40,7 +40,7 @@ class FirebaseService {
       final user = auth.currentUser;
 
       if (user == null) {
-        throw Exception('User not authenticated');
+        return null;
       }
 
       final docSnapshot = await firestore.collection('users').doc(user.uid).get();
@@ -62,7 +62,7 @@ class FirebaseService {
       final user = auth.currentUser;
 
       if (user == null) {
-        throw Exception('User not authenticated');
+        return null;
       }
 
       final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
@@ -81,7 +81,7 @@ class FirebaseService {
       final user = auth.currentUser;
 
       if (user == null) {
-        throw Exception('User not authenticated');
+        return Stream.value(null);
       }
 
       final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
@@ -99,7 +99,7 @@ class FirebaseService {
       final user = auth.currentUser;
 
       if (user == null) {
-        throw Exception('User not authenticated');
+        return false;
       }
 
       final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
@@ -121,7 +121,7 @@ class FirebaseService {
       final user = auth.currentUser;
 
       if (user == null) {
-        throw Exception('User not authenticated');
+        return false;
       }
 
       final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
@@ -141,7 +141,7 @@ class FirebaseService {
       final user = auth.currentUser;
 
       if (user == null) {
-        throw Exception('User not authenticated');
+        return false;
       }
 
       final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');

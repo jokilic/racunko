@@ -9,8 +9,8 @@ import '../../../theme/theme.dart';
 class InvoiceListTile extends StatelessWidget {
   final Invoice invoice;
   final Function() onPressed;
-  final Future Function() deletePressed;
-  final Future Function() generatePdfPressed;
+  final Function() deletePressed;
+  final Function() generatePdfPressed;
 
   const InvoiceListTile({
     required this.invoice,
