@@ -38,7 +38,7 @@ class RacunkoTextField extends StatelessWidget {
         controller: textController,
         decoration: InputDecoration(
           filled: true,
-          fillColor: context.colors.darkBlue.withOpacity(0.05),
+          fillColor: context.colors.white,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 24,
             vertical: verticalPadding.toDouble(),

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'fees.dart';
@@ -41,43 +39,6 @@ class Invoice {
     required this.waterNewMonth,
     required this.totalPrice,
   });
-
-  Invoice copyWith({
-    String? id,
-    DateTime? createdDate,
-    Prices? prices,
-    Fees? fees,
-    String? name,
-    DateTime? monthFrom,
-    DateTime? monthTo,
-    double? electricityHigherLastMonth,
-    double? electricityHigherNewMonth,
-    double? electricityLowerLastMonth,
-    double? electricityLowerNewMonth,
-    double? gasLastMonth,
-    double? gasNewMonth,
-    double? waterLastMonth,
-    double? waterNewMonth,
-    double? totalPrice,
-  }) =>
-      Invoice(
-        id: id ?? this.id,
-        createdDate: createdDate ?? this.createdDate,
-        prices: prices ?? this.prices,
-        fees: fees ?? this.fees,
-        name: name ?? this.name,
-        monthFrom: monthFrom ?? this.monthFrom,
-        monthTo: monthTo ?? this.monthTo,
-        electricityHigherLastMonth: electricityHigherLastMonth ?? this.electricityHigherLastMonth,
-        electricityHigherNewMonth: electricityHigherNewMonth ?? this.electricityHigherNewMonth,
-        electricityLowerLastMonth: electricityLowerLastMonth ?? this.electricityLowerLastMonth,
-        electricityLowerNewMonth: electricityLowerNewMonth ?? this.electricityLowerNewMonth,
-        gasLastMonth: gasLastMonth ?? this.gasLastMonth,
-        gasNewMonth: gasNewMonth ?? this.gasNewMonth,
-        waterLastMonth: waterLastMonth ?? this.waterLastMonth,
-        waterNewMonth: waterNewMonth ?? this.waterNewMonth,
-        totalPrice: totalPrice ?? this.totalPrice,
-      );
 
   factory Invoice.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data()! as Map<String, dynamic>;
@@ -121,10 +82,6 @@ class Invoice {
         waterNewMonth: map['waterNewMonth'] as double,
         totalPrice: map['totalPrice'] as double,
       );
-
-  String toJson() => json.encode(toMap());
-
-  factory Invoice.fromJson(String source) => Invoice.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() =>

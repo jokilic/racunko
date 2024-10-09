@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:hive_ce_flutter/hive_flutter.dart';
 
 part 'fees.g.dart';
@@ -25,21 +23,6 @@ class Fees {
     required this.reserve,
   });
 
-  Fees copyWith({
-    double? feesElectricity,
-    double? feesGas,
-    double? feesWater,
-    double? utility,
-    double? reserve,
-  }) =>
-      Fees(
-        feesElectricity: feesElectricity ?? this.feesElectricity,
-        feesGas: feesGas ?? this.feesGas,
-        feesWater: feesWater ?? this.feesWater,
-        utility: utility ?? this.utility,
-        reserve: reserve ?? this.reserve,
-      );
-
   Map<String, dynamic> toMap() => <String, dynamic>{
         'feesElectricity': feesElectricity,
         'feesGas': feesGas,
@@ -55,10 +38,6 @@ class Fees {
         utility: map['utility'] as double,
         reserve: map['reserve'] as double,
       );
-
-  String toJson() => json.encode(toMap());
-
-  factory Fees.fromJson(String source) => Fees.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'Fees(feesElectricity: $feesElectricity, feesGas: $feesGas, feesWater: $feesWater, utility: $utility, reserve: $reserve)';
