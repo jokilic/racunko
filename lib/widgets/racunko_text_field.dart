@@ -6,7 +6,7 @@ import '../util/input_formatters.dart';
 
 class RacunkoTextField extends StatelessWidget {
   final TextEditingController textController;
-  final String hintText;
+  final String? hintText;
   final Function(String value) onChanged;
   final TextInputAction textInputAction;
   final TextInputType textInputType;
@@ -16,8 +16,8 @@ class RacunkoTextField extends StatelessWidget {
 
   const RacunkoTextField({
     required this.textController,
-    required this.hintText,
     required this.onChanged,
+    this.hintText,
     this.textInputAction = TextInputAction.next,
     this.textInputType = TextInputType.name,
     this.isCurrency = true,

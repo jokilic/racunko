@@ -69,6 +69,31 @@ abstract class RacunkoTextStyles {
     fontSize: 12,
     fontWeight: FontWeight.w600,
   );
+  static const pdfTitle = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 28,
+    fontWeight: FontWeight.w700,
+  );
+  static const pdfSubtitle = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+  );
+  static const pdfMonthTitle = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+  );
+  static const pdfBoldText = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+  );
+  static const pdfRegularText = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+  );
 }
 
 class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtension> {
@@ -85,6 +110,11 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
   final TextStyle invoiceListTileSubtitle;
   final TextStyle price;
   final TextStyle priceBottom;
+  final TextStyle pdfTitle;
+  final TextStyle pdfSubtitle;
+  final TextStyle pdfMonthTitle;
+  final TextStyle pdfBoldText;
+  final TextStyle pdfRegularText;
 
   const RacunkoTextThemesExtension({
     required this.title,
@@ -100,6 +130,11 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     required this.invoiceListTileSubtitle,
     required this.price,
     required this.priceBottom,
+    required this.pdfTitle,
+    required this.pdfSubtitle,
+    required this.pdfMonthTitle,
+    required this.pdfBoldText,
+    required this.pdfRegularText,
   });
 
   @override
@@ -117,6 +152,11 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     TextStyle? invoiceListTileSubtitle,
     TextStyle? price,
     TextStyle? priceBottom,
+    TextStyle? pdfTitle,
+    TextStyle? pdfSubtitle,
+    TextStyle? pdfMonthTitle,
+    TextStyle? pdfBoldText,
+    TextStyle? pdfRegularText,
   }) =>
       RacunkoTextThemesExtension(
         title: title ?? this.title,
@@ -132,6 +172,11 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
         invoiceListTileSubtitle: invoiceListTileSubtitle ?? this.invoiceListTileSubtitle,
         price: price ?? this.price,
         priceBottom: priceBottom ?? this.priceBottom,
+        pdfTitle: pdfTitle ?? this.pdfTitle,
+        pdfSubtitle: pdfSubtitle ?? this.pdfSubtitle,
+        pdfMonthTitle: pdfMonthTitle ?? this.pdfMonthTitle,
+        pdfBoldText: pdfBoldText ?? this.pdfBoldText,
+        pdfRegularText: pdfRegularText ?? this.pdfRegularText,
       );
 
   @override
@@ -157,6 +202,11 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
       invoiceListTileSubtitle: TextStyle.lerp(invoiceListTileSubtitle, other.invoiceListTileSubtitle, t)!,
       price: TextStyle.lerp(price, other.price, t)!,
       priceBottom: TextStyle.lerp(priceBottom, other.priceBottom, t)!,
+      pdfTitle: TextStyle.lerp(pdfTitle, other.pdfTitle, t)!,
+      pdfSubtitle: TextStyle.lerp(pdfSubtitle, other.pdfSubtitle, t)!,
+      pdfMonthTitle: TextStyle.lerp(pdfMonthTitle, other.pdfMonthTitle, t)!,
+      pdfBoldText: TextStyle.lerp(pdfBoldText, other.pdfBoldText, t)!,
+      pdfRegularText: TextStyle.lerp(pdfRegularText, other.pdfRegularText, t)!,
     );
   }
 }

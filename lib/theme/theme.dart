@@ -69,6 +69,21 @@ class RacunkoTheme {
     priceBottom: RacunkoTextStyles.priceBottom.copyWith(
       color: lightAppColors.darkBlue,
     ),
+    pdfTitle: RacunkoTextStyles.pdfTitle.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
+    pdfSubtitle: RacunkoTextStyles.pdfSubtitle.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
+    pdfMonthTitle: RacunkoTextStyles.pdfMonthTitle.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
+    pdfBoldText: RacunkoTextStyles.pdfBoldText.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
+    pdfRegularText: RacunkoTextStyles.pdfRegularText.copyWith(
+      color: lightAppColors.darkBlue,
+    ),
   );
 }
 

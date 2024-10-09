@@ -23,7 +23,7 @@ class InvoicesController extends ValueNotifier<String?> {
   /// Triggered when the user presses `PDF` icon
   Future<void> pdfPressed(Invoice invoice) async {
     /// Generate it
-    final document = generatePdf(
+    final document = await generatePdf(
       invoice: invoice,
     );
 

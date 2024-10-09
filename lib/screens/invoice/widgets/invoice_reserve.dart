@@ -32,7 +32,7 @@ class InvoiceReserve extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: RacunkoTextField(
               textController: reserveController,
-              hintText: fees?.reserve.toStringAsFixed(2) ?? '---',
+              hintText: fees?.reserve.toStringAsFixed(2),
               onChanged: (_) => onTextFieldChanged(),
             ),
           ),

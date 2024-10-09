@@ -47,7 +47,7 @@ class InvoiceFees extends StatelessWidget {
                   flex: 4,
                   child: RacunkoTextField(
                     textController: feesElectricityController,
-                    hintText: fees?.feesElectricity.toStringAsFixed(2) ?? '---',
+                    hintText: fees?.feesElectricity.toStringAsFixed(2),
                     onChanged: (_) => onTextFieldChanged(),
                   ),
                 ),
@@ -70,7 +70,7 @@ class InvoiceFees extends StatelessWidget {
                   flex: 4,
                   child: RacunkoTextField(
                     textController: feesGasController,
-                    hintText: fees?.feesGas.toStringAsFixed(2) ?? '---',
+                    hintText: fees?.feesGas.toStringAsFixed(2),
                     onChanged: (_) => onTextFieldChanged(),
                   ),
                 ),
@@ -93,7 +93,7 @@ class InvoiceFees extends StatelessWidget {
                   flex: 4,
                   child: RacunkoTextField(
                     textController: feesWaterController,
-                    hintText: fees?.feesWater.toStringAsFixed(2) ?? '---',
+                    hintText: fees?.feesWater.toStringAsFixed(2),
                     onChanged: (_) => onTextFieldChanged(),
                   ),
                 ),

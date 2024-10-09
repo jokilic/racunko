@@ -32,7 +32,7 @@ class InvoiceUtility extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: RacunkoTextField(
               textController: utilityController,
-              hintText: fees?.utility.toStringAsFixed(2) ?? '---',
+              hintText: fees?.utility.toStringAsFixed(2),
               onChanged: (_) => onTextFieldChanged(),
             ),
           ),
