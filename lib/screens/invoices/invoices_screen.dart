@@ -237,7 +237,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                                 },
                               ),
                             ),
-                            generatePdfPressed: () => getIt.get<InvoicesController>().generatePDF(invoice),
+                            generatePdfPressed: () => getIt.get<InvoicesController>().pdfPressed(invoice),
                           );
                         },
                         separatorBuilder: (_, __) => const SizedBox(height: 16),

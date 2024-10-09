@@ -79,12 +79,7 @@ class InvoiceListTile extends StatelessWidget {
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 8),
-                Text(
-                  'Mjesec',
-                  style: context.textStyles.invoiceListTileAboveSubtitle,
-                ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 20),
                 Text(
                   DateFormat(
                     'd. MMMM y.',

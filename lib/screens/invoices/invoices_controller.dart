@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
 
 import '../../models/invoice.dart';
 import '../../services/firebase_service.dart';
 import '../../services/logger_service.dart';
-import '../../util/path.dart';
+import '../../util/pdf.dart';
 
 class InvoicesController extends ValueNotifier<String?> {
   final LoggerService logger;
@@ -24,28 +20,29 @@ class InvoicesController extends ValueNotifier<String?> {
     value = userName;
   }
 
-  /// Generates [PDF] from passed [Invoice]
-  pw.Document generatePDF(Invoice invoice) => pw.Document()
-    ..addPage(
-      pw.Page(
-        orientation: pw.PageOrientation.landscape,
-        pageFormat: PdfPageFormat.letter,
-        build: (context) => pw.Center(
-          child: pw.Text('Hello World'),
-        ),
-      ),
+  /// Triggered when the user presses `PDF` icon
+  Future<void> pdfPressed(Invoice invoice) async {
+    /// Generate it
+    final document = generatePdf(
+      invoice: invoice,
     );
 
-  /// Saves the [PDF] to a temporary location on the device
-  Future<void> savePDF({
-    required pw.Document pdf,
-    required String documentName,
-  }) async {
-    final tempDirectory = await getPDFTemporaryDirectory();
+    /// Save it
+    final pdfFile = await savePdf(
+      pdf: document,
+      documentName: invoice.id,
+    );
 
-    if (tempDirectory != null) {
-      final file = File('${tempDirectory.path}/$documentName.pdf');
-      await file.writeAsBytes(await pdf.save());
+    if (pdfFile != null) {
+      /// Open it
+      await openPdf(
+        pdfFile: pdfFile,
+      );
+
+      /// Share it
+      // await sharePdf(
+      //   pdfFile: pdfFile,
+      // );
     }
   }
 }

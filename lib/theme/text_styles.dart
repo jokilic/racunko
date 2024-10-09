@@ -54,11 +54,6 @@ abstract class RacunkoTextStyles {
     fontSize: 24,
     fontWeight: FontWeight.w700,
   );
-  static const invoiceListTileAboveSubtitle = TextStyle(
-    fontFamily: 'Outfit',
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-  );
   static const invoiceListTileSubtitle = TextStyle(
     fontFamily: 'Outfit',
     fontSize: 16,
@@ -87,7 +82,6 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
   final TextStyle fab;
   final TextStyle calendarText;
   final TextStyle invoiceListTileTitle;
-  final TextStyle invoiceListTileAboveSubtitle;
   final TextStyle invoiceListTileSubtitle;
   final TextStyle price;
   final TextStyle priceBottom;
@@ -103,7 +97,6 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     required this.fab,
     required this.calendarText,
     required this.invoiceListTileTitle,
-    required this.invoiceListTileAboveSubtitle,
     required this.invoiceListTileSubtitle,
     required this.price,
     required this.priceBottom,
@@ -121,7 +114,6 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     TextStyle? fab,
     TextStyle? calendarText,
     TextStyle? invoiceListTileTitle,
-    TextStyle? invoiceListTileAboveSubtitle,
     TextStyle? invoiceListTileSubtitle,
     TextStyle? price,
     TextStyle? priceBottom,
@@ -137,7 +129,6 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
         fab: fab ?? this.fab,
         calendarText: calendarText ?? this.calendarText,
         invoiceListTileTitle: invoiceListTileTitle ?? this.invoiceListTileTitle,
-        invoiceListTileAboveSubtitle: invoiceListTileAboveSubtitle ?? this.invoiceListTileAboveSubtitle,
         invoiceListTileSubtitle: invoiceListTileSubtitle ?? this.invoiceListTileSubtitle,
         price: price ?? this.price,
         priceBottom: priceBottom ?? this.priceBottom,
@@ -163,7 +154,6 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
       fab: TextStyle.lerp(fab, other.fab, t)!,
       calendarText: TextStyle.lerp(calendarText, other.calendarText, t)!,
       invoiceListTileTitle: TextStyle.lerp(invoiceListTileTitle, other.invoiceListTileTitle, t)!,
-      invoiceListTileAboveSubtitle: TextStyle.lerp(invoiceListTileAboveSubtitle, other.invoiceListTileAboveSubtitle, t)!,
       invoiceListTileSubtitle: TextStyle.lerp(invoiceListTileSubtitle, other.invoiceListTileSubtitle, t)!,
       price: TextStyle.lerp(price, other.price, t)!,
       priceBottom: TextStyle.lerp(priceBottom, other.priceBottom, t)!,
