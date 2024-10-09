@@ -7,5 +7,7 @@ class RacunkoIcons {
   static const login = 'assets/icons/login.png';
   static const euro = 'assets/icons/euro.png';
   static const prices = 'assets/icons/prices.png';
+  static const bill = 'assets/icons/bill.png';
+  static const wave = 'assets/icons/wave.png';
   static const illustration = 'assets/icons/illustration.png';
 }

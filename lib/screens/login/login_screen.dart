@@ -60,9 +60,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      'Prijavi se. 👋🏼',
-                      style: context.textStyles.title,
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            'Prijavi se.',
+                            style: context.textStyles.title,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Image.asset(
+                          RacunkoIcons.wave,
+                          height: 48,
+                          width: 48,
+                        ),
+                      ],
                     ),
                   ),
                   Padding(

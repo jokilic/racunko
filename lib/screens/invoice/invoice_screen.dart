@@ -109,9 +109,21 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                 ),
                 const SizedBox(width: 4),
                 Expanded(
-                  child: Text(
-                    widget.invoiceToEdit != null ? 'Uredi račun 🧾' : 'Novi račun 🧾',
-                    style: context.textStyles.title,
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          widget.invoiceToEdit != null ? 'Uredi račun' : 'Novi račun',
+                          style: context.textStyles.title,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Image.asset(
+                        RacunkoIcons.bill,
+                        height: 48,
+                        width: 48,
+                      ),
+                    ],
                   ),
                 ),
               ],

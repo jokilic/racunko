@@ -90,9 +90,21 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
             ///
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text(
-                'Pozdrav${userName != null ? ', $userName' : ''}. 👋🏼',
-                style: context.textStyles.title,
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      'Pozdrav${userName != null ? ', $userName' : ''}.',
+                      style: context.textStyles.title,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Image.asset(
+                    RacunkoIcons.wave,
+                    height: 48,
+                    width: 48,
+                  ),
+                ],
               ),
             ),
             Padding(

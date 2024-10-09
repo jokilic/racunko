@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 
+import '../../theme/icons.dart';
 import '../../theme/theme.dart';
 
 class InvoicesLoading extends StatelessWidget {
@@ -23,9 +24,21 @@ class InvoicesLoading extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        'Pozdrav. 👋🏼',
-                        style: context.textStyles.title,
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              'Pozdrav.',
+                              style: context.textStyles.title,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Image.asset(
+                            RacunkoIcons.wave,
+                            height: 48,
+                            width: 48,
+                          ),
+                        ],
                       ),
                     ),
                     Padding(
