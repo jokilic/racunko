@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../dependencies.dart';
+import '../../models/invoice.dart';
 import '../../routing.dart';
 import '../../services/firebase_service.dart';
 import '../../services/logger_service.dart';
@@ -106,7 +107,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
             ///
             /// INVOICES
             ///
-            StreamBuilder(
+            StreamBuilder<List<Invoice>?>(
               stream: firebase.getInvoicesStream(),
               builder: (context, snapshot) {
                 ///
@@ -138,8 +139,37 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                 /// ERROR
                 ///
                 if (snapshot.hasError) {
-                  return Center(
-                    child: Text('Error: ${snapshot.error}'),
+                  return Column(
+                    children: [
+                      const SizedBox(height: 56),
+                      Image.asset(
+                        RacunkoIcons.illustration1,
+                        height: 256,
+                        width: 256,
+                      ),
+                      const SizedBox(height: 40),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(
+                            'Dogodila se greška',
+                            style: context.textStyles.subtitle.copyWith(
+                              color: context.colors.red,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Text(
+                            snapshot.error.toString(),
+                            style: context.textStyles.text,
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 }
 
