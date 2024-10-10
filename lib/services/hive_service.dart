@@ -4,6 +4,7 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 import '../constants.dart';
 import '../hive_registrar.g.dart';
 import '../models/fees.dart';
+import '../models/invoice.dart';
 import '../models/prices.dart';
 import '../util/path.dart';
 import 'logger_service.dart';
@@ -19,6 +20,8 @@ class HiveService implements Disposable {
   /// VARIABLES
   ///
 
+  late final Box<String> username;
+  late final Box<Invoice> invoices;
   late final Box<Prices> prices;
   late final Box<Fees> fees;
 
@@ -33,6 +36,8 @@ class HiveService implements Disposable {
       ..init(directory?.path)
       ..registerAdapters();
 
+    username = await Hive.openBox<String>('usernameBox');
+    invoices = await Hive.openBox<Invoice>('invoicesBox');
     prices = await Hive.openBox<Prices>('pricesBox');
     fees = await Hive.openBox<Fees>('feesBox');
   }
@@ -43,6 +48,8 @@ class HiveService implements Disposable {
 
   @override
   Future<void> onDispose() async {
+    await username.close();
+    await invoices.close();
     await prices.close();
     await fees.close();
     await Hive.close();
@@ -51,6 +58,10 @@ class HiveService implements Disposable {
   ///
   /// METHODS
   ///
+
+  List<Invoice> getInvoices() => invoices.values.toList();
+
+  String? getUsername() => username.values.toList().firstOrNull;
 
   Prices getPrices() =>
       prices.values.toList().firstOrNull ??
@@ -70,6 +81,19 @@ class HiveService implements Disposable {
         utility: RacunkoConstants.utility,
         reserve: RacunkoConstants.reserve,
       );
+
+  Future<void> addUsername(String? newUsername) async {
+    await username.clear();
+
+    if (newUsername != null) {
+      await username.add(newUsername);
+    }
+  }
+
+  Future<void> addInvoices(List<Invoice> newInvoices) async {
+    await invoices.clear();
+    await invoices.addAll(newInvoices.toList());
+  }
 
   Future<void> addNewPrices(Prices newPrices) async {
     await prices.clear();

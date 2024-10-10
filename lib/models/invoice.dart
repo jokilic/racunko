@@ -1,24 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 
 import 'fees.dart';
 import 'prices.dart';
 
+part 'invoice.g.dart';
+
+@HiveType(typeId: 2)
 class Invoice {
+  @HiveField(0)
   final String id;
+  @HiveField(1)
   final DateTime createdDate;
+  @HiveField(2)
   final Prices prices;
+  @HiveField(3)
   final Fees fees;
+  @HiveField(4)
   final String name;
+  @HiveField(5)
   final DateTime monthFrom;
+  @HiveField(6)
   final DateTime monthTo;
+  @HiveField(7)
   final double electricityHigherLastMonth;
+  @HiveField(8)
   final double electricityHigherNewMonth;
+  @HiveField(9)
   final double electricityLowerLastMonth;
+  @HiveField(10)
   final double electricityLowerNewMonth;
+  @HiveField(11)
   final double gasLastMonth;
+  @HiveField(12)
   final double gasNewMonth;
+  @HiveField(13)
   final double waterLastMonth;
+  @HiveField(14)
   final double waterNewMonth;
+  @HiveField(15)
   final double totalPrice;
 
   Invoice({

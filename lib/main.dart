@@ -16,7 +16,7 @@ import 'theme/theme.dart';
 import 'widgets/racunko_loader.dart';
 
 Future<void> main() async {
-  /// Initialize Flutter related tasks
+  /// Initialize [Flutter] related tasks
   WidgetsFlutterBinding.ensureInitialized();
 
   /// Make sure the orientation is only `portrait`
@@ -24,7 +24,7 @@ Future<void> main() async {
     [DeviceOrientation.portraitUp],
   );
 
-  /// Initialize Firebase
+  /// Initialize [Firebase]
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_lambdas
 
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -16,6 +18,10 @@ class FirebaseService {
     required this.auth,
     required this.firestore,
   });
+
+  ///
+  /// METHODS
+  ///
 
   /// Login user
   Future<User?> loginUser({
@@ -35,7 +41,7 @@ class FirebaseService {
     }
   }
 
-  Future<String?> getUserName() async {
+  Future<String?> getUsername() async {
     try {
       final user = auth.currentUser;
 
