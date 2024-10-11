@@ -470,10 +470,10 @@ packages:
     dependency: "direct dev"
     description:
       name: hive_ce_generator
-      sha256: "0d16cd20cef858759adfa82785ad803da48fa9b5f1128d4e207e6236917e30a0"
+      sha256: "28fe71d313de16e33352a2844de94b5f8dd64a4ad6a00e7954b9794d757a1ca6"
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.0"
+    version: "1.7.0"
   html:
     dependency: transitive
     description:
