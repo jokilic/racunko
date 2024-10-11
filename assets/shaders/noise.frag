@@ -24,7 +24,7 @@ void main() {
     // Determine grain visibility
     if (noise > threshold) {
         // Visible grain spots (black color)
-        fragColor = vec4(0.5, 0.5, 0.5, 0.8);  // Black grain with semi-transparency
+        fragColor = vec4(0.25, 0.25, 0.25, 1);  // Black grain with semi-transparency
     } else {
         // Fully transparent background
         fragColor = vec4(0.0, 0.0, 0.0, 0.0);  // Transparent background
