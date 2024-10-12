@@ -12,7 +12,7 @@ class RacunkoTheme {
     final defaultTheme = ThemeData.light();
 
     return defaultTheme.copyWith(
-      scaffoldBackgroundColor: lightAppColors.white,
+      scaffoldBackgroundColor: lightAppColors.background,
       extensions: [
         lightAppColors,
         lightTextTheme,
@@ -21,68 +21,152 @@ class RacunkoTheme {
   }
 
   static final lightAppColors = RacunkoColorsExtension(
-    white: RacunkoColors.white,
-    grey: RacunkoColors.grey,
-    darkBlue: RacunkoColors.darkBlue,
-    blue: RacunkoColors.blue,
-    red: RacunkoColors.red,
-    green: RacunkoColors.green,
+    background: RacunkoColors.white,
+    disabled: RacunkoColors.grey,
+    text: RacunkoColors.darkBlue,
+    invertedText: RacunkoColors.white,
+    primary: RacunkoColors.blue,
+    error: RacunkoColors.red,
+    success: RacunkoColors.green,
   );
 
   static final lightTextTheme = RacunkoTextThemesExtension(
     title: RacunkoTextStyles.title.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     subtitle: RacunkoTextStyles.subtitle.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     button: RacunkoTextStyles.button.copyWith(
-      color: lightAppColors.white,
+      color: lightAppColors.invertedText,
     ),
     text: RacunkoTextStyles.text.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     dialogText: RacunkoTextStyles.dialogText.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     inputText: RacunkoTextStyles.inputText.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     hintText: RacunkoTextStyles.hintText.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     fab: RacunkoTextStyles.fab.copyWith(
-      color: lightAppColors.white,
+      color: lightAppColors.invertedText,
     ),
     calendarText: RacunkoTextStyles.calendarText.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     invoiceListTileTitle: RacunkoTextStyles.invoiceListTileTitle.copyWith(
-      color: lightAppColors.white,
+      color: lightAppColors.invertedText,
     ),
     invoiceListTileSubtitle: RacunkoTextStyles.invoiceListTileSubtitle.copyWith(
-      color: lightAppColors.white,
+      color: lightAppColors.invertedText,
     ),
     price: RacunkoTextStyles.price.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     priceBottom: RacunkoTextStyles.priceBottom.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     pdfTitle: RacunkoTextStyles.pdfTitle.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     pdfSubtitle: RacunkoTextStyles.pdfSubtitle.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     pdfMonthTitle: RacunkoTextStyles.pdfMonthTitle.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     pdfBoldText: RacunkoTextStyles.pdfBoldText.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
     ),
     pdfRegularText: RacunkoTextStyles.pdfRegularText.copyWith(
-      color: lightAppColors.darkBlue,
+      color: lightAppColors.text,
+    ),
+  );
+
+  ///
+  /// DARK
+  ///
+
+  static ThemeData get dark {
+    final defaultTheme = ThemeData.dark();
+
+    return defaultTheme.copyWith(
+      scaffoldBackgroundColor: darkAppColors.background,
+      extensions: [
+        darkAppColors,
+        darkTextTheme,
+      ],
+    );
+  }
+
+  static final darkAppColors = RacunkoColorsExtension(
+    background: RacunkoColors.black,
+    disabled: RacunkoColors.grey,
+    text: RacunkoColors.white,
+    invertedText: RacunkoColors.white,
+    primary: RacunkoColors.blue,
+    error: RacunkoColors.red,
+    success: RacunkoColors.green,
+  );
+
+  static final darkTextTheme = RacunkoTextThemesExtension(
+    title: RacunkoTextStyles.title.copyWith(
+      color: darkAppColors.text,
+    ),
+    subtitle: RacunkoTextStyles.subtitle.copyWith(
+      color: darkAppColors.text,
+    ),
+    button: RacunkoTextStyles.button.copyWith(
+      color: darkAppColors.invertedText,
+    ),
+    text: RacunkoTextStyles.text.copyWith(
+      color: darkAppColors.text,
+    ),
+    dialogText: RacunkoTextStyles.dialogText.copyWith(
+      color: darkAppColors.text,
+    ),
+    inputText: RacunkoTextStyles.inputText.copyWith(
+      color: darkAppColors.text,
+    ),
+    hintText: RacunkoTextStyles.hintText.copyWith(
+      color: darkAppColors.text,
+    ),
+    fab: RacunkoTextStyles.fab.copyWith(
+      color: darkAppColors.invertedText,
+    ),
+    calendarText: RacunkoTextStyles.calendarText.copyWith(
+      color: darkAppColors.text,
+    ),
+    invoiceListTileTitle: RacunkoTextStyles.invoiceListTileTitle.copyWith(
+      color: darkAppColors.invertedText,
+    ),
+    invoiceListTileSubtitle: RacunkoTextStyles.invoiceListTileSubtitle.copyWith(
+      color: darkAppColors.invertedText,
+    ),
+    price: RacunkoTextStyles.price.copyWith(
+      color: darkAppColors.text,
+    ),
+    priceBottom: RacunkoTextStyles.priceBottom.copyWith(
+      color: darkAppColors.text,
+    ),
+    pdfTitle: RacunkoTextStyles.pdfTitle.copyWith(
+      color: darkAppColors.text,
+    ),
+    pdfSubtitle: RacunkoTextStyles.pdfSubtitle.copyWith(
+      color: darkAppColors.text,
+    ),
+    pdfMonthTitle: RacunkoTextStyles.pdfMonthTitle.copyWith(
+      color: darkAppColors.text,
+    ),
+    pdfBoldText: RacunkoTextStyles.pdfBoldText.copyWith(
+      color: darkAppColors.text,
+    ),
+    pdfRegularText: RacunkoTextStyles.pdfRegularText.copyWith(
+      color: darkAppColors.text,
     ),
   );
 }

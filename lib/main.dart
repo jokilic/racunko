@@ -73,6 +73,7 @@ class RacunkoApp extends WatchingWidget {
         ),
         onGenerateTitle: (_) => 'Računko',
         theme: RacunkoTheme.light,
+        darkTheme: RacunkoTheme.dark,
         builder: (_, child) => kDebugMode
             ? Banner(
                 message: 'Računko'.toUpperCase(),

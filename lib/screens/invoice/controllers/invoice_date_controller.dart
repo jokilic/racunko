@@ -43,19 +43,21 @@ class InvoiceDateController extends ValueNotifier<({DateTime? monthFrom, DateTim
           fontSize: 16,
         ),
         controlsTextStyle: context.textStyles.calendarText,
+        monthTextStyle: context.textStyles.calendarText,
+        yearTextStyle: context.textStyles.calendarText,
         dayTextStyle: context.textStyles.calendarText,
         todayTextStyle: context.textStyles.calendarText,
         selectedDayTextStyle: context.textStyles.calendarText.copyWith(
-          color: context.colors.white,
+          color: context.colors.background,
         ),
         selectedMonthTextStyle: context.textStyles.calendarText.copyWith(
-          color: context.colors.white,
+          color: context.colors.background,
         ),
         selectedYearTextStyle: context.textStyles.calendarText.copyWith(
-          color: context.colors.white,
+          color: context.colors.background,
         ),
-        selectedDayHighlightColor: context.colors.darkBlue,
-        daySplashColor: context.colors.darkBlue,
+        selectedDayHighlightColor: context.colors.text,
+        daySplashColor: context.colors.text,
         firstDayOfWeek: 1,
         cancelButton: TextButton(
           onPressed: null,
@@ -64,7 +66,7 @@ class InvoiceDateController extends ValueNotifier<({DateTime? monthFrom, DateTim
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            foregroundColor: context.colors.darkBlue,
+            foregroundColor: context.colors.text,
             textStyle: context.textStyles.button,
           ),
           child: Text(
@@ -79,7 +81,7 @@ class InvoiceDateController extends ValueNotifier<({DateTime? monthFrom, DateTim
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            foregroundColor: context.colors.darkBlue,
+            foregroundColor: context.colors.text,
             textStyle: context.textStyles.button,
           ),
           child: Text(
@@ -91,6 +93,7 @@ class InvoiceDateController extends ValueNotifier<({DateTime? monthFrom, DateTim
           RacunkoIcons.back,
           height: 20,
           width: 20,
+          color: context.colors.text,
         ),
         nextMonthIcon: Transform.rotate(
           angle: pi,
@@ -98,11 +101,12 @@ class InvoiceDateController extends ValueNotifier<({DateTime? monthFrom, DateTim
             RacunkoIcons.back,
             height: 20,
             width: 20,
+            color: context.colors.text,
           ),
         ),
       ),
       borderRadius: BorderRadius.circular(16),
-      dialogBackgroundColor: context.colors.white,
+      dialogBackgroundColor: context.colors.background,
       dialogSize: const Size(400, 432),
     );
 

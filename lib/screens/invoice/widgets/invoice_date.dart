@@ -46,7 +46,7 @@ class InvoiceDate extends StatelessWidget {
               RacunkoIcons.calendar,
               height: 28,
               width: 28,
-              color: context.colors.darkBlue,
+              color: context.colors.text,
             ),
           ),
           style: OutlinedButton.styleFrom(
@@ -58,13 +58,13 @@ class InvoiceDate extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
             side: BorderSide(
-              color: context.colors.darkBlue,
+              color: context.colors.text,
               width: 2.5,
             ),
-            iconColor: context.colors.darkBlue,
-            backgroundColor: context.colors.white,
-            foregroundColor: context.colors.darkBlue,
-            overlayColor: context.colors.darkBlue,
+            iconColor: context.colors.text,
+            backgroundColor: context.colors.background,
+            foregroundColor: context.colors.text,
+            overlayColor: context.colors.text,
             textStyle: context.textStyles.button.copyWith(
               height: 1.6,
             ),

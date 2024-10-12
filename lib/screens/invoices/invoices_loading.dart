@@ -56,7 +56,7 @@ class InvoicesLoading extends StatelessWidget {
                 Column(
                   children: [
                     SpinKitPouringHourGlassRefined(
-                      color: context.colors.darkBlue,
+                      color: context.colors.text,
                       size: 48,
                     ),
                     const SizedBox(height: 24),

@@ -27,7 +27,7 @@ class InvoiceDeleteDialog extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              foregroundColor: context.colors.darkBlue,
+              foregroundColor: context.colors.text,
               textStyle: context.textStyles.button,
             ),
             child: Text(
@@ -42,7 +42,7 @@ class InvoiceDeleteDialog extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              foregroundColor: context.colors.darkBlue,
+              foregroundColor: context.colors.text,
               textStyle: context.textStyles.button,
             ),
             child: Text(
@@ -53,11 +53,11 @@ class InvoiceDeleteDialog extends StatelessWidget {
         ],
         contentPadding: const EdgeInsets.fromLTRB(24, 20, 24, 4),
         actionsPadding: const EdgeInsets.all(8),
-        backgroundColor: context.colors.white,
+        backgroundColor: context.colors.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(
-            color: context.colors.darkBlue,
+            color: context.colors.text,
             width: 2.5,
           ),
         ),

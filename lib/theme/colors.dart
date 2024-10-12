@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 abstract class RacunkoColors {
   static const white = Color(0xFFFFFFFF);
+  static const black = Color(0xFF2B2D42);
   static const grey = Color(0xFF82859C);
   static const darkBlue = Color(0xFF2C346B);
   static const blue = Color(0xFF4B57B2);
@@ -10,38 +11,42 @@ abstract class RacunkoColors {
 }
 
 class RacunkoColorsExtension extends ThemeExtension<RacunkoColorsExtension> {
-  final Color white;
-  final Color grey;
-  final Color darkBlue;
-  final Color blue;
-  final Color red;
-  final Color green;
+  final Color background;
+  final Color disabled;
+  final Color text;
+  final Color invertedText;
+  final Color primary;
+  final Color error;
+  final Color success;
 
   RacunkoColorsExtension({
-    required this.white,
-    required this.grey,
-    required this.darkBlue,
-    required this.blue,
-    required this.red,
-    required this.green,
+    required this.background,
+    required this.disabled,
+    required this.text,
+    required this.invertedText,
+    required this.primary,
+    required this.error,
+    required this.success,
   });
 
   @override
   ThemeExtension<RacunkoColorsExtension> copyWith({
-    Color? white,
-    Color? grey,
-    Color? darkBlue,
-    Color? blue,
-    Color? red,
-    Color? green,
+    Color? background,
+    Color? disabled,
+    Color? text,
+    Color? invertedText,
+    Color? primary,
+    Color? error,
+    Color? success,
   }) =>
       RacunkoColorsExtension(
-        white: white ?? this.white,
-        grey: grey ?? this.grey,
-        darkBlue: darkBlue ?? this.darkBlue,
-        blue: blue ?? this.blue,
-        red: red ?? this.red,
-        green: green ?? this.green,
+        background: background ?? this.background,
+        disabled: disabled ?? this.disabled,
+        text: text ?? this.text,
+        invertedText: invertedText ?? this.invertedText,
+        primary: primary ?? this.primary,
+        error: error ?? this.error,
+        success: success ?? this.success,
       );
 
   @override
@@ -54,12 +59,13 @@ class RacunkoColorsExtension extends ThemeExtension<RacunkoColorsExtension> {
     }
 
     return RacunkoColorsExtension(
-      white: Color.lerp(white, other.white, t)!,
-      grey: Color.lerp(grey, other.grey, t)!,
-      darkBlue: Color.lerp(darkBlue, other.darkBlue, t)!,
-      blue: Color.lerp(blue, other.blue, t)!,
-      red: Color.lerp(red, other.red, t)!,
-      green: Color.lerp(green, other.green, t)!,
+      background: Color.lerp(background, other.background, t)!,
+      disabled: Color.lerp(disabled, other.disabled, t)!,
+      text: Color.lerp(text, other.text, t)!,
+      invertedText: Color.lerp(invertedText, other.invertedText, t)!,
+      primary: Color.lerp(primary, other.primary, t)!,
+      error: Color.lerp(error, other.error, t)!,
+      success: Color.lerp(success, other.success, t)!,
     );
   }
 }

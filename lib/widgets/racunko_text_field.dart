@@ -28,7 +28,7 @@ class RacunkoTextField extends StatelessWidget {
   OutlineInputBorder border(BuildContext context) => OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide(
-          color: context.colors.darkBlue,
+          color: context.colors.text,
           width: 2,
         ),
       );
@@ -38,7 +38,7 @@ class RacunkoTextField extends StatelessWidget {
         controller: textController,
         decoration: InputDecoration(
           filled: true,
-          fillColor: context.colors.white,
+          fillColor: context.colors.background,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 24,
             vertical: verticalPadding.toDouble(),
@@ -52,7 +52,7 @@ class RacunkoTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle: context.textStyles.hintText,
         ),
-        cursorColor: context.colors.darkBlue,
+        cursorColor: context.colors.text,
         cursorRadius: const Radius.circular(16),
         cursorWidth: 2.5,
         inputFormatters: isCurrency
