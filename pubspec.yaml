@@ -93,9 +93,9 @@ flutter_icons:
 # Run splash screen generation with 'dart run flutter_native_splash:create'
 flutter_native_splash:
   background_image: 'assets/splash.png'
-  background_image_dark: 'assets/splash.png'
+  background_image_dark: 'assets/splash_dark.png'
   android_12:
     image: 'assets/splash_icon.png'
     color: '#FFFFFF'
     image_dark: 'assets/splash_icon.png'
-    color_dark: '#FFFFFF'
+    color_dark: '#2B2D42'
