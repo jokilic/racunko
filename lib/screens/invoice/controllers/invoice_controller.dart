@@ -135,12 +135,15 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
   /// Stores new fees in storage if necessary
   Future<Invoice?> createInvoice() async {
     /// Generate new invoice
-    final newInvoice = generateInvoiceFromTextFields();
+    final newInvoiceOrError = generateInvoiceFromTextFields();
 
-    if (newInvoice != null) {
+    /// Invoice is generated
+    if (newInvoiceOrError.invoice != null) {
+      final newInvoice = newInvoiceOrError.invoice;
+
       /// Compare fees
       final oldFees = hive.getFees();
-      final newFees = newInvoice.fees;
+      final newFees = newInvoice!.fees;
 
       /// If the fees are not the same, add new values in storage
       if (oldFees != newFees) {
@@ -171,7 +174,7 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
   /// Triggered on every [TextField] change
   /// Calculates invoice and updates `state`
   /// Sets `state` to `null` if some of the values are missing or unable to parse
-  Invoice? generateInvoiceFromTextFields() {
+  ({Invoice? invoice, String? error}) generateInvoiceFromTextFields() {
     ///
     /// Parse all values to `double`
     ///
@@ -205,9 +208,10 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
 
     /// Don't calculate if name isn't filled
     if (nameController.text.trim().isEmpty) {
-      logger.e("Name isn't filled");
+      const error = "Name isn't filled";
+      logger.e(error);
       value = null;
-      return null;
+      return (invoice: null, error: error);
     }
 
     ///
@@ -226,9 +230,10 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
         feesWater == null ||
         utility == null ||
         reserve == null) {
-      logger.e('Some of the values is null');
+      const error = 'Some of the values is empty';
+      logger.e(error);
       value = null;
-      return null;
+      return (invoice: null, error: error);
     }
 
     /// Don't calculate if any of the last month values are higher or same as any of the new month values
@@ -236,16 +241,18 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
         (electricityLowerLastMonth >= electricityLowerNewMonth) ||
         (gasLastMonth >= gasNewMonth) ||
         (waterLastMonth >= waterNewMonth)) {
-      logger.e('Some of the last month values are higher or same as some of the new month values');
+      const error = 'Some of the last month values are higher or same as some of the new month values';
+      logger.e(error);
       value = null;
-      return null;
+      return (invoice: null, error: error);
     }
 
     /// Don't calculate if the date isn't picked out
     if (dateController.value.monthFrom == null || dateController.value.monthTo == null) {
-      logger.e("Date isn't chosen");
+      const error = "Date isn't chosen";
+      logger.e(error);
       value = null;
-      return null;
+      return (invoice: null, error: error);
     }
 
     ///
@@ -311,10 +318,10 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
       logger.d('New invoice generated');
 
       value = newInvoice;
-      return newInvoice;
+      return (invoice: newInvoice, error: null);
     }
 
     value = null;
-    return null;
+    return (invoice: null, error: 'Invoice is null');
   }
 }
