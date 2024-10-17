@@ -77,7 +77,7 @@ class RacunkoApp extends WatchingWidget {
         builder: (_, child) => kDebugMode
             ? Banner(
                 message: 'Računko'.toUpperCase(),
-                color: Colors.indigo,
+                color: context.colors.primary,
                 location: BannerLocation.topEnd,
                 layoutDirection: TextDirection.ltr,
                 child: child ??
