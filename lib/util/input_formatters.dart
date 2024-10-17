@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 
 final currencyRegEx = RegExp(r'^\d*\.?\d{0,2}');
 
-TextEditingValue currencyInputFormatter(oldValue, newValue) {
+TextEditingValue currencyInputFormatter(
+  TextEditingValue oldValue,
+  TextEditingValue newValue,
+) {
   try {
     final text = newValue.text;
+
     if (text.isEmpty) {
       return newValue;
     }
@@ -16,16 +20,18 @@ TextEditingValue currencyInputFormatter(oldValue, newValue) {
 
     if (text.contains('.')) {
       final parts = text.split('.');
+
       if (parts.length > 2) {
         return oldValue;
       }
+
       if (parts[1].length > 2) {
         return oldValue;
       }
     }
 
-    /// Ensure the value is a valid, positive number
-    if (double.parse(text) <= 0) {
+    /// Ensure the value is a valid, positive number or zero
+    if (double.parse(text) < 0) {
       return oldValue;
     }
 
