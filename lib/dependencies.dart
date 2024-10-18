@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
+import 'services/audio_service.dart';
 import 'services/firebase_service.dart';
 import 'services/hive_service.dart';
 import 'services/logger_service.dart';
@@ -47,6 +48,15 @@ void initializeServices() => getIt
       );
       await hive.init();
       return hive;
+    },
+    dependsOn: [LoggerService],
+  )
+  ..registerSingletonAsync(
+    () async {
+      final audio = AudioService(
+        logger: getIt.get<LoggerService>(),
+      )..init();
+      return audio;
     },
     dependsOn: [LoggerService],
   );

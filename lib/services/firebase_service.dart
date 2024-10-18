@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_lambdas
-
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,7 +21,6 @@ class FirebaseService {
   /// METHODS
   ///
 
-  /// Login user
   Future<User?> loginUser({
     required String email,
     required String password,
@@ -75,7 +72,7 @@ class FirebaseService {
 
       final querySnapshot = await userCollection.orderBy('createdDate', descending: true).get();
 
-      return querySnapshot.docs.map((doc) => Invoice.fromFirestore(doc)).toList();
+      return querySnapshot.docs.map(Invoice.fromFirestore).toList();
     } catch (e) {
       logger.e('FirebaseService -> getInvoices() -> $e');
       return null;
@@ -92,7 +89,7 @@ class FirebaseService {
 
       final userCollection = firestore.collection('users').doc(user.uid).collection('invoices');
 
-      return userCollection.orderBy('createdDate', descending: true).snapshots().map((snapshot) => snapshot.docs.map((doc) => Invoice.fromFirestore(doc)).toList());
+      return userCollection.orderBy('createdDate', descending: true).snapshots().map((snapshot) => snapshot.docs.map(Invoice.fromFirestore).toList());
     } catch (e) {
       logger.e('FirebaseService -> getInvoicesStream() -> $e');
       return Stream.value(null);
