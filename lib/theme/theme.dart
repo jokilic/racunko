@@ -40,6 +40,9 @@ class RacunkoTheme {
     button: RacunkoTextStyles.button.copyWith(
       color: lightAppColors.invertedText,
     ),
+    snackbar: RacunkoTextStyles.snackbar.copyWith(
+      color: lightAppColors.text,
+    ),
     text: RacunkoTextStyles.text.copyWith(
       color: lightAppColors.text,
     ),
@@ -122,6 +125,9 @@ class RacunkoTheme {
     ),
     button: RacunkoTextStyles.button.copyWith(
       color: darkAppColors.invertedText,
+    ),
+    snackbar: RacunkoTextStyles.snackbar.copyWith(
+      color: darkAppColors.text,
     ),
     text: RacunkoTextStyles.text.copyWith(
       color: darkAppColors.text,

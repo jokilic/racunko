@@ -75,6 +75,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
       body: SafeArea(
         bottom: false,
         child: ListView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: EdgeInsets.fromLTRB(
             16,
             24,
@@ -157,6 +158,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                   ),
                 ] else ...[
                   ListView.separated(
+                    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                     shrinkWrap: true,
                     itemCount: state!.invoices.length,
                     physics: const NeverScrollableScrollPhysics(),

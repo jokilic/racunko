@@ -133,9 +133,14 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
   /// Triggered when `Create invoice` is pressed
   /// Generates new invoice
   /// Stores new fees in storage if necessary
-  Future<Invoice?> createInvoice() async {
+  Future<({Invoice? invoice, String? error})> createInvoice(BuildContext context) async {
     /// Generate new invoice
     final newInvoiceOrError = generateInvoiceFromTextFields();
+
+    /// Error exists, return it
+    if (newInvoiceOrError.error != null) {
+      return (invoice: null, error: newInvoiceOrError.error);
+    }
 
     /// Invoice is generated
     if (newInvoiceOrError.invoice != null) {
@@ -165,10 +170,10 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
       }
 
       logger.d('Invoice created');
-      return newInvoice;
+      return (invoice: newInvoice, error: null);
     }
 
-    return null;
+    return (invoice: null, error: 'Ovo se ne bi trebalo dogoditi');
   }
 
   /// Triggered on every [TextField] change
@@ -208,7 +213,15 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
 
     /// Don't calculate if name isn't filled
     if (nameController.text.trim().isEmpty) {
-      const error = "Name isn't filled";
+      const error = 'Nisi upisao naziv računa.';
+      logger.e(error);
+      value = null;
+      return (invoice: null, error: error);
+    }
+
+    /// Don't calculate if the date isn't picked out
+    if (dateController.value.monthFrom == null || dateController.value.monthTo == null) {
+      const error = 'Nisi odabrao mjesec.';
       logger.e(error);
       value = null;
       return (invoice: null, error: error);
@@ -217,42 +230,44 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
     ///
     /// Don't calculate if any of the values is `null`
     ///
-    if (electricityHigherLastMonth == null ||
-        electricityHigherNewMonth == null ||
-        electricityLowerLastMonth == null ||
-        electricityLowerNewMonth == null ||
-        gasLastMonth == null ||
-        gasNewMonth == null ||
-        waterLastMonth == null ||
-        waterNewMonth == null ||
-        feesGas == null ||
-        feesElectricity == null ||
-        feesWater == null ||
-        utility == null ||
-        reserve == null) {
-      const error = 'Some of the values is empty';
-      logger.e(error);
+    final missingValueError = generateMissingValue(
+      electricityHigherLastMonth: electricityHigherLastMonth,
+      electricityHigherNewMonth: electricityHigherNewMonth,
+      electricityLowerLastMonth: electricityLowerLastMonth,
+      electricityLowerNewMonth: electricityLowerNewMonth,
+      gasLastMonth: gasLastMonth,
+      gasNewMonth: gasNewMonth,
+      waterLastMonth: waterLastMonth,
+      waterNewMonth: waterNewMonth,
+      feesGas: feesGas,
+      feesElectricity: feesElectricity,
+      feesWater: feesWater,
+      utility: utility,
+      reserve: reserve,
+    );
+
+    if (missingValueError != null) {
+      logger.e(missingValueError);
       value = null;
-      return (invoice: null, error: error);
+      return (invoice: null, error: missingValueError);
     }
 
     /// Don't calculate if any of the last month values are higher or same as any of the new month values
-    if ((electricityHigherLastMonth >= electricityHigherNewMonth) ||
-        (electricityLowerLastMonth >= electricityLowerNewMonth) ||
-        (gasLastMonth >= gasNewMonth) ||
-        (waterLastMonth >= waterNewMonth)) {
-      const error = 'Some of the last month values are higher or same as some of the new month values';
-      logger.e(error);
-      value = null;
-      return (invoice: null, error: error);
-    }
+    final lastMonthHigherError = generateLastMonthHigher(
+      electricityHigherLastMonth: electricityHigherLastMonth!,
+      electricityHigherNewMonth: electricityHigherNewMonth!,
+      electricityLowerLastMonth: electricityLowerLastMonth!,
+      electricityLowerNewMonth: electricityLowerNewMonth!,
+      gasLastMonth: gasLastMonth!,
+      gasNewMonth: gasNewMonth!,
+      waterLastMonth: waterLastMonth!,
+      waterNewMonth: waterNewMonth!,
+    );
 
-    /// Don't calculate if the date isn't picked out
-    if (dateController.value.monthFrom == null || dateController.value.monthTo == null) {
-      const error = "Date isn't chosen";
-      logger.e(error);
+    if (lastMonthHigherError != null) {
+      logger.e(lastMonthHigherError);
       value = null;
-      return (invoice: null, error: error);
+      return (invoice: null, error: lastMonthHigherError);
     }
 
     ///
@@ -280,11 +295,11 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
               (electricityHigherDifference * prices.electricityHigherPrice) +
               (electricityLowerDifference * prices.electricityLowerPrice) +
               (waterDifference * prices.waterPrice) +
-              feesGas +
-              feesElectricity +
-              feesWater +
-              utility +
-              reserve)
+              feesGas! +
+              feesElectricity! +
+              feesWater! +
+              utility! +
+              reserve!)
           .toStringAsFixed(2),
     );
 
@@ -323,5 +338,91 @@ class InvoiceController extends ValueNotifier<Invoice?> implements Disposable {
 
     value = null;
     return (invoice: null, error: 'Invoice is null');
+  }
+
+  /// Goes through all values and returns error if any of the values is `null`
+  String? generateMissingValue({
+    required double? electricityHigherLastMonth,
+    required double? electricityHigherNewMonth,
+    required double? electricityLowerLastMonth,
+    required double? electricityLowerNewMonth,
+    required double? gasLastMonth,
+    required double? gasNewMonth,
+    required double? waterLastMonth,
+    required double? waterNewMonth,
+    required double? feesElectricity,
+    required double? feesGas,
+    required double? feesWater,
+    required double? utility,
+    required double? reserve,
+  }) {
+    if (electricityHigherLastMonth == null) {
+      return 'Nisi upisao staro stanje više tarife struje.';
+    }
+    if (electricityHigherNewMonth == null) {
+      return 'Nisi upisao novo stanje više tarife struje.';
+    }
+    if (electricityLowerLastMonth == null) {
+      return 'Nisi upisao staro stanje niže tarife struje.';
+    }
+    if (electricityLowerNewMonth == null) {
+      return 'Nisi upisao novo stanje niže tarife struje.';
+    }
+    if (gasLastMonth == null) {
+      return 'Nisi upisao staro stanje plina.';
+    }
+    if (gasNewMonth == null) {
+      return 'Nisi upisao novo stanje plina.';
+    }
+    if (waterLastMonth == null) {
+      return 'Nisi upisao staro stanje vode.';
+    }
+    if (waterNewMonth == null) {
+      return 'Nisi upisao novo stanje vode.';
+    }
+    if (feesElectricity == null) {
+      return 'Nisi upisao naknadu za struju.';
+    }
+    if (feesGas == null) {
+      return 'Nisi upisao naknadu za plin.';
+    }
+    if (feesWater == null) {
+      return 'Nisi upisao naknadu za vodu.';
+    }
+    if (utility == null) {
+      return 'Nisi upisao komunalnu naknadu.';
+    }
+    if (reserve == null) {
+      return 'Nisi upisao pričuvu.';
+    }
+
+    return null;
+  }
+
+  /// Goes through all values and returns error if any of the last month values are higher than new month values
+  String? generateLastMonthHigher({
+    required double electricityHigherLastMonth,
+    required double electricityHigherNewMonth,
+    required double electricityLowerLastMonth,
+    required double electricityLowerNewMonth,
+    required double gasLastMonth,
+    required double gasNewMonth,
+    required double waterLastMonth,
+    required double waterNewMonth,
+  }) {
+    if (electricityHigherLastMonth >= electricityHigherNewMonth) {
+      return 'Staro stanje više tarife struje je veće od novog stanja.';
+    }
+    if (electricityLowerLastMonth >= electricityLowerNewMonth) {
+      return 'Staro stanje niže tarife struje je veće od novog stanja.';
+    }
+    if (gasLastMonth >= gasNewMonth) {
+      return 'Staro stanje plina je veće od novog stanja.';
+    }
+    if (waterLastMonth >= waterNewMonth) {
+      return 'Staro stanje vode je veće od novog stanja.';
+    }
+
+    return null;
   }
 }

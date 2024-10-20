@@ -8,6 +8,7 @@ import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/icons.dart';
 import '../../theme/theme.dart';
+import '../../util/snackbar.dart';
 import 'controllers/invoice_controller.dart';
 import 'controllers/invoice_date_controller.dart';
 import 'widgets/invoice_consumption.dart';
@@ -79,6 +80,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
       body: SafeArea(
         bottom: false,
         child: ListView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: EdgeInsets.fromLTRB(
             16,
             24,
@@ -277,15 +279,19 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
             /// CREATE INVOICE
             ///
             ElevatedButton.icon(
-              onPressed: invoice != null
-                  ? () async {
-                      final newInvoice = await controller.createInvoice();
+              onPressed: () async {
+                final newInvoice = await controller.createInvoice(context);
 
-                      if (newInvoice != null) {
-                        Navigator.of(context).pop();
-                      }
-                    }
-                  : null,
+                /// Error exists, show snackbar
+                if (newInvoice.error != null) {
+                  showSnackbar(context, text: newInvoice.error!);
+                }
+
+                /// Invoice is generated, pop screen
+                if (newInvoice.invoice != null) {
+                  Navigator.of(context).pop();
+                }
+              },
               icon: Image.asset(
                 RacunkoIcons.invoice,
                 height: 28,
@@ -300,9 +306,9 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
-                backgroundColor: context.colors.success,
+                backgroundColor: invoice != null ? context.colors.success : context.colors.disabled,
                 foregroundColor: context.colors.invertedText,
-                overlayColor: context.colors.background,
+                overlayColor: invoice != null ? context.colors.background : Colors.transparent,
                 disabledBackgroundColor: context.colors.disabled,
                 disabledForegroundColor: context.colors.invertedText,
                 textStyle: context.textStyles.button,

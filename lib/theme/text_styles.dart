@@ -17,6 +17,12 @@ abstract class RacunkoTextStyles {
     fontWeight: FontWeight.w700,
     letterSpacing: 0.4,
   );
+  static const snackbar = TextStyle(
+    fontFamily: 'Outfit',
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.4,
+  );
   static const text = TextStyle(
     fontFamily: 'Outfit',
     fontSize: 18,
@@ -100,6 +106,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
   final TextStyle title;
   final TextStyle subtitle;
   final TextStyle button;
+  final TextStyle snackbar;
   final TextStyle text;
   final TextStyle dialogText;
   final TextStyle inputText;
@@ -120,6 +127,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     required this.title,
     required this.subtitle,
     required this.button,
+    required this.snackbar,
     required this.text,
     required this.dialogText,
     required this.inputText,
@@ -142,6 +150,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
     TextStyle? title,
     TextStyle? subtitle,
     TextStyle? button,
+    TextStyle? snackbar,
     TextStyle? text,
     TextStyle? dialogText,
     TextStyle? inputText,
@@ -162,6 +171,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
         title: title ?? this.title,
         subtitle: subtitle ?? this.subtitle,
         button: button ?? this.button,
+        snackbar: snackbar ?? this.snackbar,
         text: text ?? this.text,
         dialogText: dialogText ?? this.dialogText,
         inputText: inputText ?? this.inputText,
@@ -192,6 +202,7 @@ class RacunkoTextThemesExtension extends ThemeExtension<RacunkoTextThemesExtensi
       title: TextStyle.lerp(title, other.title, t)!,
       subtitle: TextStyle.lerp(subtitle, other.subtitle, t)!,
       button: TextStyle.lerp(button, other.button, t)!,
+      snackbar: TextStyle.lerp(snackbar, other.snackbar, t)!,
       text: TextStyle.lerp(text, other.text, t)!,
       dialogText: TextStyle.lerp(dialogText, other.dialogText, t)!,
       inputText: TextStyle.lerp(inputText, other.inputText, t)!,
