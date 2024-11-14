@@ -1,6 +1,5 @@
 ![Header](https://raw.githubusercontent.com/jokilic/racunko/main/screenshots/header-wide.png)
 
-
 # Računko 🧾
 
 🧾 **Računko** is a simple invoice making application made in **Flutter**. 👨‍💻
