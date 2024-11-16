@@ -13,9 +13,3 @@ Each invoice has values for electricity, gas, water and other fees related to pr
 
 ### Računko can be downloaded from [HERE](https://play.google.com/store/apps/details?id=com.josipkilic.racunko).
 &nbsp;
-
-![Multi](https://raw.githubusercontent.com/jokilic/racunko/main/screenshots/multi.png)
-
-### General To-Dos
-
-- [ ] Create screenshots and put app live
