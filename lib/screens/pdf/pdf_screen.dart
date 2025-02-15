@@ -268,7 +268,7 @@ class PdfScreen extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  '${invoice.fees.utility}€',
+                  '${invoice.fees.utility.toStringAsFixed(2)}€',
                   style: TextStyle(
                     font: font600,
                     fontSize: 18,
@@ -297,7 +297,7 @@ class PdfScreen extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  '${invoice.fees.reserve}€',
+                  '${invoice.fees.reserve.toStringAsFixed(2)}€',
                   style: TextStyle(
                     font: font600,
                     fontSize: 18,
