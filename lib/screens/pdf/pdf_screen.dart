@@ -116,6 +116,18 @@ class PdfScreen extends StatelessWidget {
           SizedBox(height: 8),
 
           ///
+          /// TITLE
+          ///
+          Text(
+            'Potrošnja',
+            style: TextStyle(
+              font: font700,
+              fontSize: 28,
+            ),
+          ),
+          SizedBox(height: 20),
+
+          ///
           /// EXPLANATION
           ///
           Row(
@@ -249,7 +261,98 @@ class PdfScreen extends StatelessWidget {
             width: double.infinity,
             color: PdfColor.fromHex('#000000'),
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 8),
+
+          ///
+          /// TITLE
+          ///
+          Text(
+            'Naknade',
+            style: TextStyle(
+              font: font700,
+              fontSize: 28,
+            ),
+          ),
+          SizedBox(height: 20),
+
+          ///
+          /// FEES
+          ///
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'Struja',
+                  style: TextStyle(
+                    font: font700,
+                    fontSize: 22,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  '${invoice.fees.feesElectricity.toStringAsFixed(2)}€',
+                  style: TextStyle(
+                    font: font600,
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'Plin',
+                  style: TextStyle(
+                    font: font700,
+                    fontSize: 22,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  '${invoice.fees.feesGas.toStringAsFixed(2)}€',
+                  style: TextStyle(
+                    font: font600,
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'Voda',
+                  style: TextStyle(
+                    font: font700,
+                    fontSize: 22,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  '${invoice.fees.feesWater.toStringAsFixed(2)}€',
+                  style: TextStyle(
+                    font: font600,
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
 
           ///
           /// UTILITY

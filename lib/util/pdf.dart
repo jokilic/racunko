@@ -24,7 +24,7 @@ Future<Document> generatePdf({required Invoice invoice}) async {
     ..addPage(
       Page(
         orientation: PageOrientation.portrait,
-        pageFormat: PdfPageFormat.letter,
+        pageFormat: PdfPageFormat.a3,
         margin: const EdgeInsets.all(40),
         build: (context) => PdfScreen(
           invoice: invoice,
