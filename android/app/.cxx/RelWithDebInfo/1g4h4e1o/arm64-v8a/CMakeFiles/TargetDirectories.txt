@@ -1,0 +1,2 @@
+/Users/josipkilic/Projects/racunko/android/app/.cxx/RelWithDebInfo/1g4h4e1o/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/josipkilic/Projects/racunko/android/app/.cxx/RelWithDebInfo/1g4h4e1o/arm64-v8a/CMakeFiles/rebuild_cache.dir
