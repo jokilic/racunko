@@ -24,20 +24,20 @@ class Fees {
   });
 
   Map<String, dynamic> toMap() => <String, dynamic>{
-        'feesElectricity': feesElectricity,
-        'feesGas': feesGas,
-        'feesWater': feesWater,
-        'utility': utility,
-        'reserve': reserve,
-      };
+    'feesElectricity': feesElectricity,
+    'feesGas': feesGas,
+    'feesWater': feesWater,
+    'utility': utility,
+    'reserve': reserve,
+  };
 
   factory Fees.fromMap(Map<String, dynamic> map) => Fees(
-        feesElectricity: map['feesElectricity'] as double,
-        feesGas: map['feesGas'] as double,
-        feesWater: map['feesWater'] as double,
-        utility: map['utility'] as double,
-        reserve: map['reserve'] as double,
-      );
+    feesElectricity: (map['feesElectricity'] as num).toDouble(),
+    feesGas: (map['feesGas'] as num).toDouble(),
+    feesWater: (map['feesWater'] as num).toDouble(),
+    utility: (map['utility'] as num).toDouble(),
+    reserve: (map['reserve'] as num).toDouble(),
+  );
 
   @override
   String toString() => 'Fees(feesElectricity: $feesElectricity, feesGas: $feesGas, feesWater: $feesWater, utility: $utility, reserve: $reserve)';

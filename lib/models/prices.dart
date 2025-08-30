@@ -21,18 +21,18 @@ class Prices {
   });
 
   Map<String, dynamic> toMap() => <String, dynamic>{
-        'electricityHigherPrice': electricityHigherPrice,
-        'electricityLowerPrice': electricityLowerPrice,
-        'gasPrice': gasPrice,
-        'waterPrice': waterPrice,
-      };
+    'electricityHigherPrice': electricityHigherPrice,
+    'electricityLowerPrice': electricityLowerPrice,
+    'gasPrice': gasPrice,
+    'waterPrice': waterPrice,
+  };
 
   factory Prices.fromMap(Map<String, dynamic> map) => Prices(
-        electricityHigherPrice: map['electricityHigherPrice'] as double,
-        electricityLowerPrice: map['electricityLowerPrice'] as double,
-        gasPrice: map['gasPrice'] as double,
-        waterPrice: map['waterPrice'] as double,
-      );
+    electricityHigherPrice: (map['electricityHigherPrice'] as num).toDouble(),
+    electricityLowerPrice: (map['electricityLowerPrice'] as num).toDouble(),
+    gasPrice: (map['gasPrice'] as num).toDouble(),
+    waterPrice: (map['waterPrice'] as num).toDouble(),
+  );
 
   @override
   String toString() => 'Prices(electricityHigherPrice: $electricityHigherPrice, electricityLowerPrice: $electricityLowerPrice, gasPrice: $gasPrice, waterPrice: $waterPrice)';

@@ -7,7 +7,8 @@ import '../../models/invoice.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
-import '../../util/pdf.dart';
+import '../../util/pdf/pdf.dart';
+import '../../util/pdf/save_pdf.dart';
 
 class InvoicesController extends ValueNotifier<({List<Invoice> invoices, String? username})?> implements Disposable {
   final LoggerService logger;
@@ -39,11 +40,11 @@ class InvoicesController extends ValueNotifier<({List<Invoice> invoices, String?
 
   /// Listen to [Invoices] `stream` from [Firebase] and store any changes in [Hive]
   void listenInvoicesFromFirebase() => invoiceStream = firebase.getInvoicesStream().listen(
-        (newInvoices) async {
-          value = (invoices: newInvoices ?? [], username: value?.username);
-          await hive.addInvoices(newInvoices ?? []);
-        },
-      );
+    (newInvoices) async {
+      value = (invoices: newInvoices ?? [], username: value?.username);
+      await hive.addInvoices(newInvoices ?? []);
+    },
+  );
 
   /// Gets username and updates state
   Future<void> getUserNameFromFirebase() async {
@@ -60,7 +61,7 @@ class InvoicesController extends ValueNotifier<({List<Invoice> invoices, String?
       invoice: invoice,
     );
 
-    /// Save it
+    /// Save or download `PDF`
     final pdfFile = await savePdf(
       pdf: document,
       documentName: invoice.id,
