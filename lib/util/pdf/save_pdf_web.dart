@@ -1,5 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
+import 'dart:js_interop';
 
 import 'package:pdf/widgets.dart';
 import 'package:web/web.dart' as web;
@@ -10,8 +10,11 @@ Future<File?> savePdf({
   required String documentName,
 }) async {
   final bytes = await pdf.save();
-  final b64 = base64Encode(bytes);
-  final url = 'data:application/pdf;base64,$b64';
+
+  final jsU8 = bytes.toJS;
+  final parts = <web.BlobPart>[jsU8].toJS;
+  final blob = web.Blob(parts, web.BlobPropertyBag(type: 'application/pdf'));
+  final url = web.URL.createObjectURL(blob);
 
   final a = web.HTMLAnchorElement()
     ..href = url
@@ -22,6 +25,7 @@ Future<File?> savePdf({
   a
     ..click()
     ..remove();
+  web.URL.revokeObjectURL(url);
 
   return null;
 }
