@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:pdf/widgets.dart';
 import 'package:web/web.dart' as web;
 
 /// Saves the `PDF` by downloading it
-Future<void> savePdf({
+Future<File?> savePdf({
   required Document pdf,
   required String documentName,
 }) async {
@@ -21,4 +22,6 @@ Future<void> savePdf({
   a
     ..click()
     ..remove();
+
+  return null;
 }
