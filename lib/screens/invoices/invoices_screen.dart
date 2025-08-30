@@ -4,7 +4,6 @@ import 'package:watch_it/watch_it.dart';
 
 import '../../dependencies.dart';
 import '../../routing.dart';
-import '../../services/audio_service.dart';
 import '../../services/firebase_service.dart';
 import '../../services/hive_service.dart';
 import '../../services/logger_service.dart';
@@ -99,10 +98,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
                   ),
                   const SizedBox(width: 8),
                   GestureDetector(
-                    onLongPress: () async {
-                      getIt.get<AudioService>().playAudio();
-                      await getIt.get<FirebaseService>().auth.signOut();
-                    },
+                    onLongPress: getIt.get<FirebaseService>().auth.signOut,
                     child: Image.asset(
                       RacunkoIcons.wave,
                       height: 48,

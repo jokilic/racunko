@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:watch_it/watch_it.dart';
 
 import '../../dependencies.dart';
-import '../../services/audio_service.dart';
 import '../../services/firebase_service.dart';
 import '../../services/logger_service.dart';
 import '../../theme/icons.dart';
@@ -70,13 +69,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        GestureDetector(
-                          onLongPress: getIt.get<AudioService>().playAudio,
-                          child: Image.asset(
-                            RacunkoIcons.wave,
-                            height: 48,
-                            width: 48,
-                          ),
+                        Image.asset(
+                          RacunkoIcons.wave,
+                          height: 48,
+                          width: 48,
                         ),
                       ],
                     ),
