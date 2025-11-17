@@ -1,13 +1,13 @@
 class RacunkoIcons {
-  static const back = 'assets/icons/back.png';
-  static const delete = 'assets/icons/delete.png';
-  static const pdf = 'assets/icons/pdf.png';
-  static const invoice = 'assets/icons/invoice.png';
-  static const calendar = 'assets/icons/calendar.png';
-  static const login = 'assets/icons/login.png';
-  static const euro = 'assets/icons/euro.png';
-  static const prices = 'assets/icons/prices.png';
-  static const bill = 'assets/icons/bill.png';
-  static const wave = 'assets/icons/wave.png';
-  static const illustration = 'assets/icons/illustration.png';
+  static const back = 'assets/icons/back.webp';
+  static const delete = 'assets/icons/delete.webp';
+  static const pdf = 'assets/icons/pdf.webp';
+  static const invoice = 'assets/icons/invoice.webp';
+  static const calendar = 'assets/icons/calendar.webp';
+  static const login = 'assets/icons/login.webp';
+  static const euro = 'assets/icons/euro.webp';
+  static const prices = 'assets/icons/prices.webp';
+  static const bill = 'assets/icons/bill.webp';
+  static const wave = 'assets/icons/wave.webp';
+  static const illustration = 'assets/icons/illustration.webp';
 }

@@ -10,7 +10,7 @@ final getIt = GetIt.instance;
 
 /// Registers a class if it's not already initialized
 /// Optionally runs a function with newly registered class
-void registerIfNotInitialized<T extends Object>(
+T registerIfNotInitialized<T extends Object>(
   T Function() factoryFunc, {
   String? instanceName,
   void Function(T controller)? afterRegister,
@@ -19,13 +19,11 @@ void registerIfNotInitialized<T extends Object>(
     getIt.registerLazySingleton<T>(
       factoryFunc,
       instanceName: instanceName,
+      onCreated: afterRegister != null ? (instance) => afterRegister(instance) : null,
     );
-
-    if (afterRegister != null) {
-      final instance = getIt.get<T>(instanceName: instanceName);
-      afterRegister(instance);
-    }
   }
+
+  return getIt.get<T>(instanceName: instanceName);
 }
 
 void initializeServices() => getIt
