@@ -16,6 +16,7 @@ dependencies:
   cloud_firestore: 6.1.0
   firebase_auth: 6.1.2
   firebase_core: 4.2.1
+  flutter_displaymode: 0.7.0
   flutter_spinkit: 5.2.2
   flutter_swipe_action_cell: 3.1.6
   get_it: 9.0.5
@@ -70,13 +71,18 @@ flutter:
 
 # Configuration for 'flutter_launcher_icons'
 # Run icon generation with 'dart run flutter_launcher_icons:main'
-flutter_icons:
+flutter_launcher_icons:
+  image_path_android: 'assets/icon.png'
+  image_path_ios: 'assets/icon.png'
   android: true
   ios: true
-  image_path: 'assets/icon.png'
+  adaptive_icon_background: 'assets/background.png'
+  adaptive_icon_foreground: 'assets/splash_icon.png'
+  adaptive_icon_foreground_inset: 16
+  adaptive_icon_monochrome: 'assets/monochrome.png'
   min_sdk_android: 21
-  adaptive_icon_background: '#FFFFFF'
-  adaptive_icon_foreground: 'assets/icon.png'
+  remove_alpha_ios: true
+  background_color_ios: '#FFFFFF'
   web:
     generate: true
     image_path: 'assets/icon.png'
@@ -97,6 +103,6 @@ flutter_native_splash:
   background_image_dark: 'assets/splash_dark.png'
   android_12:
     image: 'assets/splash_icon.png'
+    image_dark: 'assets/monochrome.png'
     color: '#FFFFFF'
-    image_dark: 'assets/splash_icon.png'
     color_dark: '#2B2D42'

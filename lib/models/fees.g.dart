@@ -8,7 +8,7 @@ part of 'fees.dart';
 
 class FeesAdapter extends TypeAdapter<Fees> {
   @override
-  final int typeId = 1;
+  final typeId = 1;
 
   @override
   Fees read(BinaryReader reader) {

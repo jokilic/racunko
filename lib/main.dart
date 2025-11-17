@@ -13,6 +13,7 @@ import 'screens/invoices/invoices_loading.dart';
 import 'screens/invoices/invoices_screen.dart';
 import 'screens/login/login_screen.dart';
 import 'theme/theme.dart';
+import 'util/display_mode.dart';
 import 'widgets/racunko_loader.dart';
 
 Future<void> main() async {
@@ -23,6 +24,12 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
+
+  /// Use `edge-to-edge` display
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
+  /// Set refresh rate to high
+  await setDisplayMode();
 
   /// Initialize [Firebase]
   await Firebase.initializeApp(
@@ -45,53 +52,54 @@ Future<void> main() async {
 class RacunkoApp extends WatchingWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
-        localizationsDelegates: GlobalMaterialLocalizations.delegates,
-        supportedLocales: const [Locale('hr')],
-        debugShowCheckedModeBanner: false,
-        home: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            ///
-            /// LOADING
-            ///
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return InvoicesLoading();
-            }
+    localizationsDelegates: GlobalMaterialLocalizations.delegates,
+    supportedLocales: const [Locale('hr')],
+    debugShowCheckedModeBanner: false,
+    home: StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        ///
+        /// LOADING
+        ///
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return InvoicesLoading();
+        }
 
-            ///
-            /// USER LOGGED IN
-            ///
-            if (snapshot.hasData) {
-              return InvoicesScreen();
-            }
+        ///
+        /// USER LOGGED IN
+        ///
+        if (snapshot.hasData) {
+          return InvoicesScreen();
+        }
 
-            ///
-            /// NO USER
-            ///
-            return LoginScreen();
-          },
-        ),
-        onGenerateTitle: (_) => 'Računko',
-        theme: RacunkoTheme.light,
-        darkTheme: RacunkoTheme.dark,
-        builder: (_, child) => kDebugMode
-            ? Banner(
-                message: 'Računko'.toUpperCase(),
-                color: context.colors.primary,
-                location: BannerLocation.topEnd,
-                layoutDirection: TextDirection.ltr,
-                child: child ??
-                    Scaffold(
-                      body: Center(
-                        child: RacunkoLoader(),
-                      ),
-                    ),
-              )
-            : child ??
+        ///
+        /// NO USER
+        ///
+        return LoginScreen();
+      },
+    ),
+    onGenerateTitle: (_) => 'Računko',
+    theme: RacunkoTheme.light,
+    darkTheme: RacunkoTheme.dark,
+    builder: (_, child) => kDebugMode
+        ? Banner(
+            message: 'Računko'.toUpperCase(),
+            color: context.colors.primary,
+            location: BannerLocation.topEnd,
+            layoutDirection: TextDirection.ltr,
+            child:
+                child ??
                 Scaffold(
                   body: Center(
                     child: RacunkoLoader(),
                   ),
                 ),
-      );
+          )
+        : child ??
+              Scaffold(
+                body: Center(
+                  child: RacunkoLoader(),
+                ),
+              ),
+  );
 }
