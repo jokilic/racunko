@@ -132,6 +132,37 @@ class PdfScreen extends StatelessWidget {
     ),
   );
 
+  Widget buildTotalRow({
+    required String title,
+    required String amount,
+  }) => Padding(
+    padding: const EdgeInsets.symmetric(vertical: 5),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Text(
+            title,
+            style: TextStyle(
+              font: font700,
+              fontSize: 24,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            amount,
+            style: TextStyle(
+              font: font700,
+              fontSize: 24,
+            ),
+            textAlign: TextAlign.right,
+          ),
+        ),
+      ],
+    ),
+  );
+
   Widget buildHeaderRow() => Padding(
     padding: const EdgeInsets.only(bottom: 8),
     child: Row(
@@ -327,7 +358,7 @@ class PdfScreen extends StatelessWidget {
         invoice.name,
         style: TextStyle(
           font: font700,
-          fontSize: 26,
+          fontSize: 24,
         ),
       ),
       SizedBox(height: 24),
@@ -431,20 +462,16 @@ class PdfScreen extends StatelessWidget {
       ///
       SizedBox(height: 16),
       buildDivider(),
-      SizedBox(height: 12),
+      SizedBox(height: 14),
 
       ///
       /// TOTAL
       ///
-      buildTableRow(
+      buildTotalRow(
         title: 'Ukupno',
         amount: formatMoney(
           calculateInvoice() ?? 0,
         ),
-        titleFont: font700,
-        amountFont: font700,
-        titleSize: 24,
-        amountSize: 24,
       ),
     ],
   );
