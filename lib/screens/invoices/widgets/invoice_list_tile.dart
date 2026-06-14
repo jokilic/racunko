@@ -59,57 +59,59 @@ class InvoiceListTile extends StatelessWidget {
           ),
         ),
       ],
-      child: ListTile(
-        tileColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        iconColor: context.colors.invertedText,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 18,
-          vertical: 12,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        titleTextStyle: context.textStyles.invoiceListTileTitle,
-        subtitleTextStyle: context.textStyles.invoiceListTileSubtitle,
-        leadingAndTrailingTextStyle: context.textStyles.invoiceListTileTitle,
-        onTap: onPressed,
-        titleAlignment: ListTileTitleAlignment.center,
-        title: Text(invoice.name),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20),
-            Text(
-              DateFormat(
-                'd. MMMM y.',
-                'hr',
-              ).format(invoice.monthFrom),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              DateFormat(
-                'd. MMMM y.',
-                'hr',
-              ).format(invoice.monthTo),
-            ),
-          ],
-        ),
-        trailing: Column(
-          children: [
-            Image.asset(
-              RacunkoIcons.euro,
-              color: context.colors.invertedText,
-              height: 16,
-              width: 16,
-            ),
-            const SizedBox(height: 8),
-            Flexible(
-              child: Text(
-                invoice.totalPrice.toStringAsFixed(2),
+      child: Material(
+        color: context.colors.primary,
+        borderRadius: BorderRadius.circular(16),
+        child: ListTile(
+          iconColor: context.colors.invertedText,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 18,
+            vertical: 12,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          titleTextStyle: context.textStyles.invoiceListTileTitle,
+          subtitleTextStyle: context.textStyles.invoiceListTileSubtitle,
+          leadingAndTrailingTextStyle: context.textStyles.invoiceListTileTitle,
+          onTap: onPressed,
+          titleAlignment: ListTileTitleAlignment.center,
+          title: Text(invoice.name),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              Text(
+                DateFormat(
+                  'd. MMMM y.',
+                  'hr',
+                ).format(invoice.monthFrom),
               ),
-            ),
-          ],
+              const SizedBox(height: 4),
+              Text(
+                DateFormat(
+                  'd. MMMM y.',
+                  'hr',
+                ).format(invoice.monthTo),
+              ),
+            ],
+          ),
+          trailing: Column(
+            children: [
+              Image.asset(
+                RacunkoIcons.euro,
+                color: context.colors.invertedText,
+                height: 16,
+                width: 16,
+              ),
+              const SizedBox(height: 8),
+              Flexible(
+                child: Text(
+                  invoice.totalPrice.toStringAsFixed(2),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     ),
