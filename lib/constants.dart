@@ -1,15 +1,15 @@
 class RacunkoConstants {
   static const animationDuration = Duration(milliseconds: 300);
 
-  static const electricityHigherPrice = 0.16;
-  static const electricityLowerPrice = 0.08;
-  static const gasPrice = 0.5;
-  static const waterPrice = 2.03;
+  static const electricityHigherPrice = 0.20;
+  static const electricityLowerPrice = 0.10;
+  static const gasPrice = 0.67;
+  static const waterPrice = 2.04;
 
-  static const feesGas = 1.81;
-  static const feesElectricity = 2.85;
+  static const feesElectricity = 3.35;
+  static const feesGas = 1.82;
   static const feesWater = 2.51;
 
   static const utility = 11.31;
-  static const reserve = 21.92;
+  static const reserve = 30.68;
 }

@@ -2,7 +2,7 @@
 // Do not modify
 // Check in to version control
 
-import 'package:hive_ce/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:racunko/models/fees.dart';
 import 'package:racunko/models/invoice.dart';
 import 'package:racunko/models/prices.dart';
