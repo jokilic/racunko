@@ -8,5 +8,8 @@
         "statusBarItem.remoteBackground": "#2c346b",
         "statusBarItem.remoteForeground": "#e7e7e7"
     },
-    "peacock.color": "#2C346B",
+    "problems.decorations.enabled": false,
+    "dart.analysisExcludedFolders": [
+        "build/",
+    ],
 }
